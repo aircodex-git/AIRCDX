@@ -573,8 +573,8 @@ h2.slide-title{
 .product-cards{
   margin-top: 2rem;
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.4rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
 }
 .product-card{
   padding: 2rem 1.7rem 1.8rem;
@@ -714,6 +714,20 @@ h2.slide-title{
 .mock-doc{ border:1px solid var(--a-line); border-radius:6px; padding:.85rem .95rem; display:flex; flex-direction:column; gap:.55rem; }
 .mock-doc-row{ display:flex; gap:1.4rem; }
 .mock-doc .mock-value{ height:.5rem; }
+
+.mock-stats{ display:flex; gap:.7rem; }
+.mock-stat{
+  flex:1;
+  background: color-mix(in srgb, var(--a-ink) 4%, var(--a-surface));
+  border:1px solid var(--a-line);
+  border-radius:6px;
+  padding:.7rem .85rem;
+  display:flex;
+  flex-direction:column;
+  gap:.3rem;
+}
+.mock-stat b{ font-family: var(--font-display); font-size:1.5rem; font-weight:800; color: var(--a-ink); }
+.mock-stat span{ font-family: var(--font-mono); font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; color: var(--a-ink-soft); }
 
 .mock-caption-note{ font-style: normal; }
 
@@ -989,7 +1003,7 @@ h2.slide-title{
     <div class="slide-inner">
       <p class="eyebrow">Selected Work</p>
       <h2 class="slide-title">A Few Examples of Our Latest Work</h2>
-      <p class="lede" style="margin-top:.6rem;">Three recent builds — a quick look at each follows.</p>
+      <p class="lede" style="margin-top:.6rem;">Four recent builds — a quick look at each follows.</p>
       <div class="product-cards">
         <article class="product-card">
           <span class="p-index">Product 01</span>
@@ -1008,6 +1022,12 @@ h2.slide-title{
           <h3>air<span class="dim">SIGNATURE</span></h3>
           <p>Digital signature management for multi-party approval and document workflows.</p>
           <span class="p-cat">Workflow · Compliance</span>
+        </article>
+        <article class="product-card">
+          <span class="p-index">Product 04</span>
+          <h3>Document<span class="dim"> Manager</span></h3>
+          <p>Compliance document management and AI-assisted read &amp; acknowledge workflow, built on SharePoint Online.</p>
+          <span class="p-cat">Compliance · Microsoft 365</span>
         </article>
       </div>
     </div>
@@ -1130,8 +1150,51 @@ h2.slide-title{
     </div>
   </section>
 
-  <!-- 09 INDUSTRIES & ENGAGEMENT -->
-  <section class="slide band-a" id="s9" data-label="Industries &amp; Engagement">
+  <!-- 09 DOCUMENT MANAGER -->
+  <section class="slide band-a" id="s9" data-label="Document Manager">
+    <div class="slide-inner">
+      <div class="device-pair">
+        <div class="product-head">
+          <p class="eyebrow">Product · Document Manager</p>
+          <h2 class="slide-title">Compliance-Ready Documents, Built on SharePoint</h2>
+          <p class="lede">A document management and compliance layer built directly on SharePoint Online — giving employees one place to read and acknowledge what's required, and compliance owners full visibility into who's done it, backed by a built-in Microsoft Copilot assistant.</p>
+          <ul class="highlight-list">
+            <li><b>Audit-Ready Instantly</b> — turns "who has read this?" into an exportable report in seconds</li>
+            <li><b>Zero New Infrastructure</b> — runs entirely inside your existing Microsoft 365 tenant</li>
+            <li><b>AI-Assisted Reading</b> — a Copilot-based assistant summarizes, translates and explains on demand</li>
+          </ul>
+        </div>
+        <div class="frame-wrap">
+          <div class="browser-frame">
+            <div class="chrome"><i></i><i></i><i></i></div>
+            <div class="mock-body">
+              <div class="mock-toprow">
+                <span class="mock-chip">My Documents</span>
+                <span class="mock-pill pending">2 Overdue</span>
+              </div>
+              <div class="mock-stats">
+                <div class="mock-stat"><b>18</b><span>Assigned</span></div>
+                <div class="mock-stat"><b>14</b><span>Acknowledged</span></div>
+                <div class="mock-stat"><b>2</b><span>Overdue</span></div>
+              </div>
+              <div class="mock-doclist">
+                <div class="mock-doc">
+                  <div class="mock-doc-row"><span class="mock-pill approved">Acknowledged</span><span class="mock-value" style="width:58%"></span></div>
+                </div>
+                <div class="mock-doc">
+                  <div class="mock-doc-row"><span class="mock-pill pending">Overdue</span><span class="mock-value" style="width:45%"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="frame-cap">"My Documents" dashboard — illustrative mockup</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 INDUSTRIES & ENGAGEMENT -->
+  <section class="slide band-a" id="s10" data-label="Industries &amp; Engagement">
     <div class="slide-inner">
       <p class="eyebrow">Beyond the Products</p>
       <h2 class="slide-title">Who We Build For, How We Work</h2>
@@ -1156,8 +1219,8 @@ h2.slide-title{
     </div>
   </section>
 
-  <!-- 10 CONTACT -->
-  <section class="slide band-b" id="s10" data-label="Contact">
+  <!-- 11 CONTACT -->
+  <section class="slide band-b" id="s11" data-label="Contact">
     <div class="slide-inner">
       <p class="eyebrow">Get In Touch</p>
       <h2 class="slide-title">Let's Talk About Your Next Project</h2>
@@ -1169,7 +1232,7 @@ h2.slide-title{
         </ul>
         <div class="contact-cta">
           <p class="eyebrow" style="color:var(--accent);">Next Step</p>
-          <p>Contact us to schedule a product demonstration of APP365, AIRPAX or airSIGNATURE — or to talk through a custom build on .NET Core, React, Next.js and TypeScript.</p>
+          <p>Contact us to schedule a product demonstration of APP365, AIRPAX, airSIGNATURE or Document Manager — or to talk through a custom build on .NET Core, React, Next.js and TypeScript.</p>
         </div>
       </div>
       <div class="contact-foot">
