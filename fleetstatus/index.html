@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Live Fleet Dashboard · fleetstatus.aviation.aero</title>
+<meta name="description" content="Live Fleet Dashboard — one tile per aircraft showing AOG, on air, operational, line maintenance, base maintenance and parked status, with open AMOS defects per aircraft." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#1b1f63;
+  --bg-2:#141850;
+  --ink:#ffffff;
+  --ink-soft:rgba(255,255,255,.72);
+  --line:rgba(255,255,255,.18);
+
+  --aog:#e2342f;       --aog-dark:#b8201c;
+  --air:#3dbb62;       --air-dark:#2a9a4c;
+  --ops:#f4f6fb;       --ops-dark:#dfe4ef;
+  --line-mx:#2f8fe0;   --line-mx-dark:#1d6fb8;
+  --base-mx:#e0a526;   --base-mx-dark:#b8841a;
+  --parked:#9a9ca6;    --parked-dark:#7a7c86;
+
+  --ring-ok:#39c05f;
+  --ring-warn:#f0922b;
+  --ring-bad:#e6392f;
+
+  --gap:18px;
+  --pad-x:24px;
+  --tile-w:320px;
+  --tile-h:225px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Lato",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:radial-gradient(120% 90% at 50% 0%, #252a78 0%, var(--bg) 45%, var(--bg-2) 100%) fixed;
+  background-color:var(--bg);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+body.scroll-mode{overflow:auto}
+button{font:inherit;color:inherit}
+
+/* ============================ HEADER ============================ */
+.top{
+  display:flex;align-items:center;gap:20px;
+  padding:14px var(--pad-x) 12px;
+  flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:16px;min-width:0}
+.logo{
+  width:58px;height:58px;flex:none;
+  border:2px dashed rgba(255,255,255,.55);border-radius:14px;
+  display:grid;place-items:center;
+  font-weight:900;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+}
+.title{font-size:28px;font-weight:700;line-height:1.08;letter-spacing:.005em}
+.title small{display:block;font-size:11px;font-weight:400;letter-spacing:.08em;color:var(--ink-soft);margin-top:4px}
+.divider{width:3px;align-self:stretch;background:#fff;border-radius:2px;margin:6px 4px}
+.clock{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums}
+.clock .sync-note{display:block;font-size:11px;color:var(--ink-soft);letter-spacing:.04em;margin-top:2px}
+.refresh{
+  background:none;border:0;padding:4px;cursor:pointer;border-radius:50%;
+  display:grid;place-items:center;
+}
+.refresh svg{width:22px;height:22px}
+.refresh:hover{background:rgba(255,255,255,.1)}
+.refresh.spin svg{animation:spin .8s linear}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.legend{
+  margin-left:auto;
+  display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 22px;
+  max-width:980px;
+}
+.legend button{
+  display:flex;align-items:center;gap:9px;
+  background:none;border:0;padding:3px 4px;cursor:pointer;border-radius:6px;
+  font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;
+  transition:opacity .15s;
+}
+.legend button:hover{background:rgba(255,255,255,.07)}
+.legend button[aria-pressed="false"]{opacity:.35}
+.legend .sw{width:34px;height:22px;border-radius:5px;border:2px solid rgba(255,255,255,.85);flex:none}
+.legend .count{
+  font-size:11px;font-weight:700;min-width:20px;padding:1px 6px;border-radius:10px;
+  background:rgba(255,255,255,.16);text-align:center;
+}
+.sw.aog{background:var(--aog)}
+.sw.air{background:var(--air)}
+.sw.ops{background:transparent}
+.sw.line{background:var(--line-mx)}
+.sw.base{background:repeating-linear-gradient(135deg,var(--base-mx) 0 5px,#c98f14 5px 8px)}
+.sw.parked{background:var(--parked)}
+
+/* ============================ GRID ============================ */
+.board{
+  flex:1;min-height:0;
+  padding:6px var(--pad-x) var(--pad-x);
+  display:flex;justify-content:center;align-items:flex-start;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(var(--cols,4), var(--tile-w));
+  grid-auto-rows:var(--tile-h);
+  gap:var(--gap);
+}
+.empty{color:var(--ink-soft);font-size:18px;padding:40px;text-align:center}
+
+/* ============================ TILE ============================ */
+.tile{
+  container-type:size;
+  position:relative;
+  width:var(--tile-w);height:var(--tile-h);
+  border:0;padding:0;margin:0;
+  border-radius:10px;overflow:hidden;
+  cursor:pointer;text-align:center;
+  display:grid;grid-template-rows:auto 1fr;
+  box-shadow:0 6px 18px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.08);
+  transition:transform .15s ease, box-shadow .15s ease;
+  --c:var(--aog); --cd:var(--aog-dark); --fg:#fff; --fg-soft:rgba(255,255,255,.85);
+  background:var(--c);color:var(--fg);
+}
+.tile:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,0,0,.36), inset 0 0 0 1px rgba(255,255,255,.2)}
+.tile:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.tile.aog{--c:var(--aog);--cd:var(--aog-dark)}
+.tile.air{--c:var(--air);--cd:var(--air-dark)}
+.tile.ops{--c:var(--ops);--cd:var(--ops-dark);--fg:#1b1f63;--fg-soft:#3b4078}
+.tile.line{--c:var(--line-mx);--cd:var(--line-mx-dark)}
+.tile.base{--c:var(--base-mx);--cd:var(--base-mx-dark);--fg:#2a1d00;--fg-soft:#3d2c05;
+  background:repeating-linear-gradient(135deg,var(--base-mx) 0 14px,#d49a1d 14px 22px)}
+.tile.parked{--c:var(--parked);--cd:var(--parked-dark)}
+
+.t-main{padding:5cqh 5cqw 0;display:flex;flex-direction:column;align-items:stretch;min-height:0}
+.t-head{font-size:6.2cqw;font-weight:700;letter-spacing:.09em;line-height:1.1;white-space:nowrap}
+.t-route{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  margin-top:4.2cqh;
+  font-size:7.8cqw;font-weight:700;letter-spacing:.02em;line-height:1;
+}
+.t-route .from{text-align:left;padding-left:1cqw}
+.t-route .to{text-align:right;padding-right:1cqw}
+.t-type{display:flex;align-items:center;gap:1.6cqw;font-size:4.8cqw;font-weight:700}
+.t-type svg{width:5.4cqw;height:5.4cqw}
+
+.t-times{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:start;
+  margin-top:3.4cqh;
+}
+.t-time{display:flex;flex-direction:column;align-items:center;gap:1.4cqh}
+.t-time:first-child{align-items:flex-start}
+.t-time:last-child{align-items:flex-end}
+.t-time .box{
+  background:#fff;color:#1d1d1d;
+  font-size:7.4cqw;font-weight:400;line-height:1;
+  padding:1.7cqw 3.4cqw;border-radius:1.4cqw;min-width:22cqw;
+  font-variant-numeric:tabular-nums;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
+}
+.t-time .date{font-size:3.5cqw;font-weight:700;color:var(--fg-soft);white-space:nowrap}
+.t-checks{display:flex;gap:3.4cqw;padding:0 1cqw}
+.chk{display:flex;flex-direction:column;align-items:center;gap:1.2cqh}
+.ring{
+  width:10cqw;height:10cqw;border-radius:50%;
+  background:#fff;
+  border:1.2cqw solid var(--ring);
+  display:grid;place-items:center;
+  font-size:2.9cqw;font-weight:900;color:var(--ring);letter-spacing:.02em;
+}
+.chk .val{font-size:3.9cqw;font-weight:700;white-space:nowrap}
+.ring.ok{--ring:var(--ring-ok)}
+.ring.warn{--ring:var(--ring-warn)}
+.ring.bad{--ring:var(--ring-bad)}
+
+.t-pill{
+  align-self:center;
+  margin-top:auto;margin-bottom:3.4cqh;
+  background:rgba(255,255,255,.92);color:#5b5b66;
+  font-size:4.4cqw;line-height:1;
+  padding:1.6cqw 0;width:66%;border-radius:4cqw;
+  white-space:nowrap;
+}
+.tile.ops .t-pill{background:#fff;box-shadow:inset 0 0 0 1px rgba(27,31,99,.18)}
+.t-foot{
+  background:var(--cd);
+  min-height:23cqh;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5cqh 6cqw;
+  font-size:4.6cqw;font-weight:700;line-height:1.18;
+  text-transform:none;
+}
+.tile.aog .t-foot{text-transform:uppercase;justify-content:flex-start;text-align:left}
+.tile.base .t-foot{background:rgba(120,82,0,.55);color:#fff}
+.t-foot span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ============================ MODAL ============================ */
+dialog{
+  width:min(1180px,calc(100vw - 32px));
+  max-height:calc(100vh - 40px);
+  padding:0;border:0;border-radius:14px;
+  background:#f6f7fb;color:#1c2040;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+  overflow:hidden;
+}
+dialog[open]{display:flex;flex-direction:column}
+dialog::backdrop{background:rgba(8,10,40,.7);backdrop-filter:blur(3px)}
+.m-head{
+  --c:var(--aog);--fg:#fff;
+  background:var(--c);color:var(--fg);
+  padding:18px 22px 16px;
+  display:grid;grid-template-columns:1fr auto;gap:10px 20px;align-items:start;
+}
+.m-head.air{--c:var(--air)}
+.m-head.ops{--c:#e6e9f2;--fg:#1b1f63}
+.m-head.line{--c:var(--line-mx)}
+.m-head.base{--c:var(--base-mx);--fg:#2a1d00}
+.m-head.parked{--c:var(--parked)}
+.m-head h2{margin:0;font-size:24px;letter-spacing:.06em}
+.m-head h2 .msn{font-weight:400;opacity:.85}
+.m-head .sub{margin-top:6px;font-size:14px;opacity:.92;display:flex;flex-wrap:wrap;gap:6px 18px}
+.m-head .sub b{font-weight:700}
+.m-status{
+  display:inline-block;margin-top:10px;
+  font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(0,0,0,.18);padding:4px 10px;border-radius:20px;
+}
+.m-head.ops .m-status,.m-head.base .m-status{background:rgba(0,0,0,.1)}
+.m-close{
+  background:rgba(0,0,0,.15);border:0;width:38px;height:38px;border-radius:50%;
+  cursor:pointer;display:grid;place-items:center;color:inherit;
+}
+.m-close:hover{background:rgba(0,0,0,.28)}
+.m-close svg{width:18px;height:18px}
+
+.m-body{overflow:auto;padding:18px 22px 8px;flex:1;min-height:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:#fff;border-radius:10px;padding:10px 14px;box-shadow:0 1px 0 rgba(20,24,80,.06), inset 0 0 0 1px #e4e6f0}
+.kpi .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6a6f93;font-weight:700}
+.kpi .v{font-size:24px;font-weight:900;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi.bad .v{color:#c62828}
+.kpi.warn .v{color:#d9730d}
+
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.tools input,.tools select{
+  font:inherit;font-size:14px;color:#1c2040;
+  background:#fff;border:1px solid #d5d8e6;border-radius:8px;padding:8px 12px;
+}
+.tools input{flex:1;min-width:200px}
+.tools .src{margin-left:auto;font-size:12px;color:#6a6f93}
+.tools .src code{font-size:11.5px;background:#e9ebf4;padding:2px 6px;border-radius:4px}
+
+table.defects{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:inset 0 0 0 1px #e4e6f0}
+.defects th{
+  position:sticky;top:-18px;z-index:1;
+  background:#eceef6;color:#4b5075;
+  text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;
+  padding:10px 10px;border-bottom:1px solid #dfe2ee;white-space:nowrap;
+  cursor:pointer;user-select:none;
+}
+.defects th[data-sort]:hover{color:#1c2040}
+.defects th .arr{opacity:.5;font-size:10px;margin-left:3px}
+.defects td{padding:10px;border-bottom:1px solid #eef0f6;vertical-align:top}
+.defects tr.row{cursor:pointer}
+.defects tr.row:hover td{background:#f7f8fd}
+.defects tr.row.open td{background:#f2f4fc}
+.defects .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;white-space:nowrap}
+.defects .desc b{display:block;font-weight:700;color:#1c2040}
+.defects .desc span{color:#6a6f93;font-size:12.5px}
+.tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.04em;padding:3px 8px;border-radius:12px;white-space:nowrap}
+.tag.aog{background:#fde2e1;color:#b3211c}
+.tag.A{background:#fde2e1;color:#b3211c}
+.tag.B{background:#ffe9d3;color:#b35b00}
+.tag.C{background:#fff5c9;color:#8a6a00}
+.tag.D{background:#e1f3e6;color:#1f7a3a}
+.tag.nil{background:#e9ebf4;color:#4b5075}
+.st{font-size:12px;font-weight:700;white-space:nowrap}
+.st::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:currentColor;vertical-align:1px}
+.st.open{color:#c62828}
+.st.deferred{color:#d9730d}
+.st.parts{color:#6b4fd0}
+.st.work{color:#1d6fb8}
+.st.insp{color:#2a9a4c}
+.due.over{color:#c62828;font-weight:900}
+.due.soon{color:#d9730d;font-weight:700}
+.detail td{background:#fbfbfe;padding:0}
+.detail .inner{padding:14px 16px 16px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 26px;border-left:4px solid #1b1f63}
+.detail .f .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6a6f93;font-weight:700}
+.detail .f .v{margin-top:3px;font-size:13.5px;line-height:1.4}
+.detail .f.wide{grid-column:1/-1}
+.m-foot{
+  padding:10px 22px;border-top:1px solid #e1e3ee;background:#fff;
+  font-size:12px;color:#6a6f93;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;
+}
+.none{padding:40px;text-align:center;color:#6a6f93}
+
+/* ============================ SMALL SCREENS ============================ */
+@media (max-width:900px){
+  :root{--pad-x:16px;--gap:12px}
+  .title{font-size:22px}
+  .clock{font-size:17px}
+  .logo{width:46px;height:46px;font-size:11px}
+  .legend{margin-left:0;justify-content:flex-start;gap:6px 12px}
+  .legend button{font-size:12px}
+  .legend .sw{width:26px;height:18px}
+  .divider{display:none}
+  .brand{flex-wrap:wrap;row-gap:8px}
+}
+@media (max-width:480px){
+  .clock{font-size:15px;flex-basis:100%}
+}
+@media (max-width:760px){
+  .defects thead{display:none}
+  .defects, .defects tbody, .defects tr, .defects td{display:block;width:100%}
+  .defects tr.row{padding:10px 12px;border-bottom:1px solid #eef0f6;display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
+  .defects tr.row td{padding:0;border:0;background:none !important}
+  .defects tr.row td.desc{grid-column:1/-1}
+  .defects tr.row td[data-l]::before{content:attr(data-l);display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#6a6f93;font-weight:700}
+  .m-head h2{font-size:19px}
+  .tools .src{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .tile{transition:none}
+  .refresh.spin svg{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-label="Company logo placeholder">Logo</div>
+    <div class="title">Live Fleet<br />Dashboard<small>fleetstatus.aviation.aero</small></div>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="clock">
+      <div>
+        <span id="clock">UTC --/--/-- --:--:--</span>
+        <span class="sync-note" id="syncNote">AMOS sync —</span>
+      </div>
+      <button class="refresh" id="refresh" title="Refresh from AMOS" aria-label="Refresh from AMOS">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="legend" id="legend" aria-label="Status legend and filter"></nav>
+</header>
+
+<main class="board" id="board">
+  <div class="grid" id="grid" role="list"></div>
+</main>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="m-head" id="mHead">
+    <div>
+      <h2 id="dlgTitle"></h2>
+      <div class="sub" id="mSub"></div>
+      <span class="m-status" id="mStatus"></span>
+    </div>
+    <button class="m-close" id="mClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="m-body">
+    <div class="kpis" id="kpis"></div>
+    <div class="tools">
+      <input type="search" id="q" placeholder="Search defect no., ATA, description, part number…" aria-label="Search defects" />
+      <select id="fCat" aria-label="Filter by category">
+        <option value="">All categories</option>
+        <option value="AOG">AOG</option>
+        <option value="A">MEL Cat A</option>
+        <option value="B">MEL Cat B</option>
+        <option value="C">MEL Cat C</option>
+        <option value="D">MEL Cat D</option>
+        <option value="NIL">Non-MEL</option>
+      </select>
+      <select id="fStatus" aria-label="Filter by status">
+        <option value="">All statuses</option>
+        <option>Open</option>
+        <option>Deferred</option>
+        <option>Parts on order</option>
+        <option>In work</option>
+        <option>Awaiting inspection</option>
+      </select>
+      <span class="src">Source: AMOS · <code id="apiPath"></code></span>
+    </div>
+    <table class="defects">
+      <thead>
+        <tr>
+          <th data-sort="no">Defect no. <span class="arr"></span></th>
+          <th data-sort="ata">ATA <span class="arr"></span></th>
+          <th data-sort="title">Description <span class="arr"></span></th>
+          <th data-sort="cat">Cat. <span class="arr"></span></th>
+          <th data-sort="raised">Raised <span class="arr"></span></th>
+          <th data-sort="due">Due / limit <span class="arr"></span></th>
+          <th data-sort="status">Status <span class="arr"></span></th>
+        </tr>
+      </thead>
+      <tbody id="dBody"></tbody>
+    </table>
+  </div>
+  <div class="m-foot">
+    <span id="mCount"></span>
+    <span>Click a row for full AMOS defect details · Esc to close</span>
+  </div>
+</dialog>
+
+<script>
+(function(){
+"use strict";
+
+/* ------------------------------------------------------------------
+   Status definitions (order = sort priority on the board)
+------------------------------------------------------------------ */
+const STATUS = {
+  aog:    {label:"Aircraft on ground", short:"AOG"},
+  air:    {label:"On air",             short:"On air"},
+  ops:    {label:"Operational",        short:"Operational"},
+  line:   {label:"Line maintenance",   short:"Line maintenance"},
+  base:   {label:"Base maintenance",   short:"Base maintenance"},
+  parked: {label:"Parked",             short:"Parked"}
+};
+const ORDER = Object.keys(STATUS);
+
+/* ------------------------------------------------------------------
+   Fleet (dummy data). Times are UTC relative to BASE_DAY and are
+   shifted onto "today" at load so the board always looks live.
+   dy / wy = hours remaining to daily / weekly check (negative = overdue).
+------------------------------------------------------------------ */
+const BASE_DAY = Date.UTC(2024, 9, 20);
+const FLEET = [
+  {reg:"ESSBX", msn:5348, type:"320", status:"aog",  from:"BLR", to:"LKO", dep:"2024-10-21T00:15", arr:"2024-10-21T02:40", dy:7,   wy:150, defects:15, note:"Engine #1 acoustic lining damaged", station:"BLR"},
+  {reg:"9HSLK", msn:3866, type:"320", status:"aog",  from:"DEL", to:"CJB", dep:"2024-10-20T23:40", arr:"2024-10-21T02:45", dy:45,  wy:148, defects:47, note:"Rejected takeoff - vent skin valve fault", station:"DEL"},
+  {reg:"9HSLF", msn:3475, type:"320", status:"aog",  from:"DEL", to:"VNS", dep:"2024-10-20T23:25", arr:"2024-10-21T00:55", dy:18,  wy:146, defects:44, note:"Eng #2 fuel leak", station:"DEL"},
+  {reg:"9HSLP", msn:3512, type:"320", status:"aog",  from:"GZT", to:"SAW", dep:"2024-10-20T18:50", arr:"2024-10-20T20:35", dy:22,  wy:96,  defects:31, note:"Eng #1 bleed valve inoperative", station:"GZT"},
+  {reg:"YLLCX", msn:2216, type:"321", status:"aog",  from:"SAW", to:"",    dep:"2024-10-15T18:40", arr:"2024-10-21T23:59", dy:-96, wy:27,  defects:42, note:"ENG #2 Attrition Lining Missing Material", station:"SAW"},
+  {reg:"YLLCR", msn:2233, type:"320", status:"air",  from:"ORY", to:"TUN", dep:"2024-10-20T20:45", arr:"2024-10-20T23:13", dy:28,  wy:120, defects:9,  flight:"TU723",  project:"PADHO"},
+  {reg:"YLLDK", msn:2975, type:"320", status:"air",  from:"ESB", to:"SAW", dep:"2024-10-20T20:20", arr:"2024-10-20T21:25", dy:36,  wy:72,  defects:12, flight:"VF3007", project:"PATKJ"},
+  {reg:"YLLDV", msn:5074, type:"321", status:"air",  from:"SAW", to:"ESB", dep:"2024-10-20T20:10", arr:"2024-10-20T21:24", dy:19,  wy:98,  defects:7,  flight:"PC2664", project:"PAPGS"},
+  {reg:"9HCGF", msn:1017, type:"32X", status:"air",  from:"LEJ", to:"LNZ", dep:"2024-10-20T20:00", arr:"2024-10-20T21:08", dy:40,  wy:160, defects:5,  flight:"X34417", project:"PACGX"},
+  {reg:"9HGEP", msn:42830,type:"7M8", status:"air",  from:"SAW", to:"GZT", dep:"2024-10-20T20:00", arr:"2024-10-20T21:43", dy:43,  wy:168, defects:3,  flight:"PC2182", project:"PAGEM"},
+  {reg:"YLLCN", msn:2380, type:"320", status:"air",  from:"AYT", to:"DUS", dep:"2024-10-20T19:35", arr:"2024-10-20T23:05", dy:31,  wy:110, defects:11, flight:"XQ982",  project:"PAXQD"},
+  {reg:"9HSLD", msn:3398, type:"320", status:"air",  from:"BOM", to:"GOI", dep:"2024-10-20T20:55", arr:"2024-10-20T22:05", dy:26,  wy:130, defects:18, flight:"6E5391", project:"PAIGO"},
+  {reg:"LPTNB", msn:6120, type:"321", status:"air",  from:"LIS", to:"FNC", dep:"2024-10-20T20:30", arr:"2024-10-20T22:15", dy:34,  wy:88,  defects:6,  flight:"TP1693", project:"PATPL"},
+  {reg:"ESSBR", msn:5412, type:"320", status:"ops",  from:"TLL", to:"ARN", dep:"2024-10-21T05:40", arr:"2024-10-21T06:35", dy:47,  wy:140, defects:8,  flight:"LO7702", project:"PALOT"},
+  {reg:"YLLDQ", msn:3011, type:"320", status:"ops",  from:"SAW", to:"ADB", dep:"2024-10-21T04:15", arr:"2024-10-21T05:25", dy:30,  wy:50,  defects:14, flight:"PC2004", project:"PAPGS"},
+  {reg:"9HGEW", msn:42861,type:"7M8", status:"ops",  from:"MLA", to:"FCO", dep:"2024-10-21T06:05", arr:"2024-10-21T07:30", dy:46,  wy:162, defects:2,  flight:"KM612",  project:"PAKMM"},
+  {reg:"9HCGJ", msn:1102, type:"32X", status:"ops",  from:"LNZ", to:"LEJ", dep:"2024-10-21T05:10", arr:"2024-10-21T06:20", dy:21,  wy:118, defects:4,  flight:"X34418", project:"PACGX"},
+  {reg:"YLLCB", msn:2102, type:"320", status:"line", from:"ESB", to:"",    dep:"2024-10-20T16:05", arr:"2024-10-21T03:00", dy:2,   wy:60,  defects:19, note:"Daily check + wheel #3 change", station:"ESB"},
+  {reg:"9HSLT", msn:3990, type:"320", status:"line", from:"DEL", to:"",    dep:"2024-10-20T19:10", arr:"2024-10-21T01:30", dy:12,  wy:20,  defects:23, note:"Weekly check · brake wear pin", station:"DEL"},
+  {reg:"LPTNF", msn:6177, type:"321", status:"line", from:"LIS", to:"",    dep:"2024-10-20T21:00", arr:"2024-10-21T04:45", dy:9,   wy:130, defects:10, note:"Cabin PSU rectification", station:"LIS"},
+  {reg:"YLLDA", msn:2840, type:"320", status:"base", from:"KUN", to:"",    dep:"2024-10-02T09:00", arr:"2024-11-04T18:00", dy:-420,wy:-400,defects:137,note:"C-Check · Hangar 2 · RTS Nov 04", station:"KUN"},
+  {reg:"9HSLB", msn:3244, type:"320", status:"base", from:"MLA", to:"",    dep:"2024-10-12T07:00", arr:"2024-10-26T15:00", dy:-200,wy:-190,defects:88, note:"2Y check + landing gear swap", station:"MLA"},
+  {reg:"ESSBG", msn:5190, type:"320", status:"parked",from:"TLL",to:"",    dep:"2024-09-18T12:00", arr:"2024-11-15T12:00", dy:-760,wy:-740,defects:26, note:"Parked · awaiting lease return", station:"TLL"},
+  {reg:"YLLCE", msn:2045, type:"321", status:"parked",from:"SAW",to:"",    dep:"2024-10-06T22:40", arr:"2024-10-30T08:00", dy:-330,wy:-320,defects:21, note:"Parked · winter storage prog.", station:"SAW"}
+];
+
+/* ------------------------------------------------------------------
+   Helpers
+------------------------------------------------------------------ */
+const $ = s => document.querySelector(s);
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const pad = n => String(n).padStart(2,"0");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+const now0 = new Date();
+const TODAY = Date.UTC(now0.getUTCFullYear(), now0.getUTCMonth(), now0.getUTCDate());
+const SHIFT = TODAY - BASE_DAY;
+const shifted = iso => new Date(Date.parse(iso + ":00Z") + SHIFT);
+
+const hhmm = d => pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
+const mdy  = d => MONTHS[d.getUTCMonth()] + " " + d.getUTCDate() + ", " + d.getUTCFullYear();
+const dmy  = d => pad(d.getUTCDate()) + " " + MONTHS[d.getUTCMonth()] + " " + d.getUTCFullYear();
+const dmyhm= d => dmy(d) + " " + hhmm(d);
+
+function checkLabel(h){
+  return Math.abs(h) < 48 ? h + "H" : (h < 0 ? "-" : "") + Math.floor(Math.abs(h)/24) + "D";
+}
+function ringClass(kind, h){
+  if (kind === "dy") return h < 12 ? "bad" : h < 24 ? "warn" : "ok";
+  return h < 36 ? "bad" : h < 60 ? "warn" : "ok";
+}
+
+const PLANE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" transform="rotate(45 12 12)"/></svg>';
+
+/* ------------------------------------------------------------------
+   Board
+------------------------------------------------------------------ */
+const hidden = new Set();
+const grid = $("#grid");
+
+function buildLegend(){
+  const counts = {};
+  FLEET.forEach(a => counts[a.status] = (counts[a.status]||0) + 1);
+  $("#legend").innerHTML = ORDER.map(k =>
+    `<button type="button" data-k="${k}" aria-pressed="${!hidden.has(k)}" title="Show / hide ${STATUS[k].label.toLowerCase()}">
+       <span class="sw ${k}"></span>${STATUS[k].label}<span class="count">${counts[k]||0}</span>
+     </button>`).join("");
+}
+$("#legend").addEventListener("click", e => {
+  const b = e.target.closest("button[data-k]"); if (!b) return;
+  const k = b.dataset.k;
+  hidden.has(k) ? hidden.delete(k) : hidden.add(k);
+  buildLegend(); renderTiles();
+});
+
+function tileHTML(a, i){
+  const dep = shifted(a.dep), arr = shifted(a.arr);
+  const pill = a.status === "air" || a.status === "ops"
+    ? esc(a.flight)
+    : "Open defects: " + a.defects;
+  const foot = a.project ? "Project: " + esc(a.project) : esc(a.note || "");
+  return `<button class="tile ${a.status}" role="listitem" data-i="${i}" aria-label="${esc(a.reg)}, ${STATUS[a.status].label}, ${a.defects} open defects. Open details">
+    <div class="t-main">
+      <div class="t-head">${esc(a.reg)} (MSN ${a.msn})</div>
+      <div class="t-route">
+        <span class="from">${esc(a.from)}</span>
+        <span class="t-type">${PLANE}${esc(a.type)}</span>
+        <span class="to">${esc(a.to)}</span>
+      </div>
+      <div class="t-times">
+        <div class="t-time"><span class="box">${hhmm(dep)}</span><span class="date">${mdy(dep)}</span></div>
+        <div class="t-checks">
+          <div class="chk"><span class="ring ${ringClass("dy",a.dy)}">DY</span><span class="val">${checkLabel(a.dy)}</span></div>
+          <div class="chk"><span class="ring ${ringClass("wy",a.wy)}">WY</span><span class="val">${checkLabel(a.wy)}</span></div>
+        </div>
+        <div class="t-time"><span class="box">${hhmm(arr)}</span><span class="date">${mdy(arr)}</span></div>
+      </div>
+      <div class="t-pill">${pill}</div>
+    </div>
+    <div class="t-foot"><span>${foot}</span></div>
+  </button>`;
+}
+
+let visible = [];
+function renderTiles(){
+  visible = FLEET.map((a,i)=>({a,i}))
+    .filter(x => !hidden.has(x.a.status))
+    .sort((x,y) => ORDER.indexOf(x.a.status) - ORDER.indexOf(y.a.status) || x.i - y.i);
+  grid.innerHTML = visible.length
+    ? visible.map(x => tileHTML(x.a, x.i)).join("")
+    : '<div class="empty">No aircraft match the selected statuses.</div>';
+  layout();
+}
+grid.addEventListener("click", e => {
+  const t = e.target.closest(".tile"); if (t) openDefects(+t.dataset.i);
+});
+
+/* Fit every tile on the screen: try each column count and keep the one
+   that gives the biggest tile at a fixed aspect ratio. If tiles would
+   become too small to read (phones, small windows), fall back to a
+   scrolling grid instead. */
+const RATIO = 1.36, MIN_W = 250, MAX_W = 520;
+function layout(){
+  const n = Math.max(visible.length, 1);
+  const board = $("#board");
+  const cs = getComputedStyle(document.documentElement);
+  const gap = parseFloat(cs.getPropertyValue("--gap")) || 18;
+  const padX = parseFloat(cs.getPropertyValue("--pad-x")) || 24;
+  const W = board.clientWidth - padX*2;
+  const H = window.innerHeight - $(".top").offsetHeight - 6 - padX;
+
+  let best = {w:0, cols:1};
+  for (let cols = 1; cols <= n; cols++){
+    const rows = Math.ceil(n / cols);
+    const w = Math.min((W - gap*(cols-1)) / cols, ((H - gap*(rows-1)) / rows) * RATIO);
+    if (w > best.w) best = {w, cols};
+  }
+  let {w, cols} = best;
+  const scroll = w < MIN_W;
+  if (scroll){
+    cols = Math.max(1, Math.floor((W + gap) / (MIN_W + gap)));
+    w = Math.min((W - gap*(cols-1)) / cols, MAX_W);
+  } else {
+    w = Math.min(w, MAX_W);
+  }
+  document.body.classList.toggle("scroll-mode", scroll);
+  const s = document.documentElement.style;
+  s.setProperty("--cols", cols);
+  s.setProperty("--tile-w", Math.floor(w) + "px");
+  s.setProperty("--tile-h", Math.floor(w / RATIO) + "px");
+}
+let rz; window.addEventListener("resize", () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(layout); });
+
+/* ------------------------------------------------------------------
+   Clock + simulated AMOS sync
+------------------------------------------------------------------ */
+let lastSync = new Date();
+function tick(){
+  const d = new Date();
+  $("#clock").textContent = "UTC " + pad(d.getUTCDate()) + "/" + pad(d.getUTCMonth()+1) + "/" +
+    String(d.getUTCFullYear()).slice(2) + " " + pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes()) + ":" + pad(d.getUTCSeconds());
+  const ago = Math.round((d - lastSync) / 1000);
+  $("#syncNote").textContent = "AMOS sync " + (ago < 5 ? "just now" : ago < 60 ? ago + "s ago" : Math.floor(ago/60) + "m ago");
+}
+function sync(){
+  const b = $("#refresh");
+  b.classList.remove("spin"); void b.offsetWidth; b.classList.add("spin");
+  lastSync = new Date(); tick();
+}
+$("#refresh").addEventListener("click", sync);
+setInterval(tick, 1000);
+setInterval(sync, 5 * 60 * 1000);
+
+/* ------------------------------------------------------------------
+   AMOS defect simulation (deterministic per registration)
+------------------------------------------------------------------ */
+function rng(seed){
+  let h = 2166136261;
+  for (const c of seed) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return () => { h += 0x6D2B79F5; let t = h; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+const pick = (r, arr) => arr[Math.floor(r() * arr.length)];
+
+const CATALOGUE = [
+  ["21-51","Pack 2 outlet temperature high","ECAM PACK 2 OVHT displayed during climb. Pack reset on ground, fault recurred.","Replace pack 2 temperature sensor per AMM 21-63-15.","D3Y 3214-02"],
+  ["21-26","Avionics ventilation extract fan noisy","Loud grinding noise from avionics extract fan during ground run.","Replace extract fan per AMM 21-26-41.","1580-0123-01"],
+  ["22-83","FMGC 2 fault message intermittent","FMGC 2 FAULT on MCDU after power transfer, cleared after reset.","Perform BITE test, replace FMGC 2 if fault confirmed.","C13043BA02"],
+  ["23-51","ACP 3 volume knob loose","Audio control panel 3 VHF1 volume knob loose / not latching.","Replace knob assy per IPC 23-51-11.","2711S0102"],
+  ["24-22","IDG 1 oil temperature high","IDG 1 OIL HI TEMP advisory during cruise.","Check IDG oil level & cooler, replace IDG if required.","755248C"],
+  ["25-21","Seat 14C recline inoperative","Passenger seat 14C recline mechanism jammed in upright position.","Placard seat, rectify recline lock per CMM 25-21-40.","3990-121-04"],
+  ["25-31","Galley G2 oven 3 inoperative","Oven 3 in aft galley does not heat, CB checked OK.","Replace oven per CMM 25-31-11, perform ops test.","5019-0080-01"],
+  ["26-15","APU fire detection loop B fault","LOOP B FAULT displayed on ECAM, loop A operative.","Troubleshoot per TSM 26-15-00-810-801.","473597"],
+  ["27-51","Flap asymmetry detected on ground","Flap SYS 2 fault on ground, cleared after reset. Recurring.","Inspect APPU wiring, replace APPU if required.","A2753015-2"],
+  ["28-21","Fuel pump L2 low pressure","L TK PUMP 2 LO PR on ECAM during taxi.","Replace fuel pump canister per AMM 28-21-42.","2310-0048-02"],
+  ["29-11","Green hydraulic reservoir low level","Green HYD RSVR LO LVL on ground after hydraulic servicing.","Leak check green system, service reservoir.","NIL"],
+  ["30-42","Windshield heat captain side inop","WINDOW HEAT L WSHLD fault message.","Replace WHC 1 per AMM 30-42-51.","3140-0213-03"],
+  ["31-32","DFDR fault","DFDR FAULT caution on ECAM after engine start.","Download & perform readout, replace DFDR.","980-4750-003"],
+  ["32-42","Brake #3 wear pin at limit","Brake 3 wear pin flush with housing during walkaround.","Replace brake assy #3 per AMM 32-42-27.","C20225-100"],
+  ["32-41","Tyre #2 cut beyond limits","Cut on MLG tyre #2 tread measuring 12mm depth.","Replace wheel assy #2 per AMM 32-41-11.","3-1596"],
+  ["33-42","Nav light LH wing inoperative","Left wing navigation light (red) inoperative at night check.","Replace lamp / light assy.","30-1790-1"],
+  ["34-11","ADR 3 disagree","NAV ADR DISAGREE on ECAM during approach.","Perform ADR BITE, inspect pitot 3 probe.","0851HL"],
+  ["35-11","Crew O2 bottle pressure low","Crew oxygen pressure 1150 psi on ECAM SD.","Service or replace crew oxygen cylinder.","801307-00"],
+  ["36-11","Bleed 1 fault intermittent","ENG 1 BLEED FAULT after takeoff, reset successful.","Replace PRV / BMC 1 per TSM 36-11-00.","3214552-4"],
+  ["38-31","Aft lavatory flush inoperative","Lav E vacuum toilet not flushing.","Replace flush control unit per AMM 38-31-43.","TV1026-08"],
+  ["49-61","APU start failure","APU auto shutdown on start, ECAM APU AUTO SHUT DOWN.","Troubleshoot ECB fault log, replace ignition unit.","3888394-1"],
+  ["52-11","Door L1 slide pressure low","L1 escape slide bottle pressure below green band.","Replace slide / raft assy per AMM 25-62-45.","D31865-109"],
+  ["53-10","Dent on fuselage skin STA 1200","Dent 18mm dia, 0.9mm depth found below FWD cargo door.","Assess per SRM 53-10-12, blend or repair.","NIL"],
+  ["56-11","Windshield delamination FO side","Delamination 40mm at lower corner of FO windshield.","Monitor per AMM 56-11-00, replace at next opportunity.","NP158125-1"],
+  ["71-11","Engine 2 cowl latch damaged","Fan cowl latch #3 on engine 2 does not engage correctly.","Replace latch per AMM 71-13-00.","315A2124-3"],
+  ["72-00","Engine #2 fan blade erosion","Leading edge erosion on fan blades 7 & 19 near limits.","Borescope and blend per EM 72-21-00.","NIL"],
+  ["73-11","Engine #2 fuel leak at FMU","Fuel leak observed at fuel metering unit fitting, 3 drops/min.","Replace FMU seal, leak check per AMM 73-21-10.","M83248/1-906"],
+  ["78-31","Thrust reverser 1 unlock fault","REV 1 UNLOCKED on ECAM after landing.","Adjust / replace proximity sensor per TSM 78-31-00.","3291-4502"],
+  ["79-21","Engine 1 oil consumption high","Oil consumption trend 0.42 qt/h over last 10 sectors.","Perform oil leak check and trend monitoring.","NIL"],
+  ["80-11","Starter valve 2 slow to open","ENG 2 START VALVE FAULT during start, second attempt OK.","Replace starter air valve per AMM 80-13-41.","3290644-3"]
+];
+const AOG_ATA = {
+  "Engine #1 acoustic lining damaged": ["71-10","Detailed inspection found acoustic lining panel delaminated/torn at 4 o'clock position, engine #1 inlet.","Replace acoustic lining panel per EM 71-10-00; engine ground run required.","2024M83P01"],
+  "Rejected takeoff - vent skin valve fault": ["21-43","RTO at 80 kts due to ECAM AVIONICS VENT SKIN VALVE FAULT. Valve stuck partially open.","Replace skin air outlet valve per AMM 21-26-54, perform brake cooling and RTO inspection.","HTE6200A"],
+  "Eng #2 fuel leak": ["73-11","Fuel leak exceeding limits at engine #2 fuel manifold, approx. 25 drops/min.","Replace fuel manifold seal, leak check at idle and high power.","3059M49P04"],
+  "Eng #1 bleed valve inoperative": ["36-11","ENG 1 BLEED FAULT, HP valve fails to close. Dispatch not permitted (MEL restriction for route).","Replace HP valve per AMM 36-11-44, perform bleed ops test.","3214552-8"],
+  "ENG #2 Attrition Lining Missing Material": ["72-31","Missing material on engine #2 fan case attrition lining, beyond EM limits.","Repair/replace attrition lining per EM 72-31-00; engine removal may be required.","2067M17G01"]
+};
+const STATIONS = ["SAW","ESB","DEL","BLR","MLA","TLL","LIS","ORY","LEJ","AYT","BOM","GZT"];
+const REPORTERS = ["Flight crew (TLB)","Flight crew (TLB)","Cabin crew (CDL)","Line maintenance","Base maintenance","Engineering review"];
+const LIMIT_DAYS = {A:2, B:3, C:10, D:120, NIL:30, AOG:0};
+
+const cache = new Map();
+function defectsFor(a){
+  if (cache.has(a.reg)) return cache.get(a.reg);
+  const r = rng(a.reg + a.msn);
+  const now = Date.now();
+  const list = [];
+  const yy = String(new Date().getUTCFullYear()).slice(2);
+  let seq = 1000 + Math.floor(r()*8000);
+
+  const mk = (ata, title, desc, action, pn, cat, raised, status) => {
+    const due = cat === "AOG" ? null : new Date(raised.getTime() + LIMIT_DAYS[cat]*864e5);
+    seq += 1 + Math.floor(r()*37);
+    return {
+      no: a.reg + "-" + yy + "-" + String(seq).padStart(5,"0"),
+      wo: "W/O " + (4400000 + Math.floor(r()*99999)),
+      tlp: "TLP " + String(Math.floor(r()*9000)+1000).padStart(6,"0"),
+      ata, title, desc, action, pn, cat, raised, due, status,
+      mel: cat === "NIL" || cat === "AOG" ? "—" : ata + "-" + pad(1+Math.floor(r()*12)) + (r()>.5?"A":""),
+      station: a.station || a.from || pick(r, STATIONS),
+      reporter: pick(r, REPORTERS),
+      parts: pn === "NIL" ? "No parts required"
+           : pn + " × " + (1+Math.floor(r()*2)) + (status === "Parts on order" ? " · ETA " + dmy(new Date(now + (1+Math.floor(r()*6))*864e5)) : " · in stock " + pick(r, STATIONS)),
+      mh: (Math.round((0.5 + r()*11) * 2) / 2).toFixed(1)
+    };
+  };
+
+  if (a.status === "aog" && AOG_ATA[a.note]){
+    const [ata, desc, action, pn] = AOG_ATA[a.note];
+    list.push(mk(ata, a.note, desc, action, pn, "AOG", new Date(now - (2 + r()*20)*36e5), "In work"));
+  }
+  const pool = CATALOGUE.slice();
+  for (let i = list.length; i < a.defects; i++){
+    const c = pool.length ? pool.splice(Math.floor(r()*pool.length),1)[0] : pick(r, CATALOGUE);
+    const cat = pick(r, ["C","C","C","D","D","B","B","A","NIL","NIL"]);
+    const ageDays = r() * (LIMIT_DAYS[cat] * 1.15 + 1);
+    const raised = new Date(now - ageDays*864e5);
+    const status = pick(r, ["Open","Deferred","Deferred","Deferred","Parts on order","In work","Awaiting inspection"]);
+    list.push(mk(c[0], c[1], c[2], c[3], c[4], cat, raised, status));
+  }
+  cache.set(a.reg, list);
+  return list;
+}
+
+/* ------------------------------------------------------------------
+   Dialog
+------------------------------------------------------------------ */
+const dlg = $("#dlg");
+let cur = null, sortKey = "due", sortDir = 1, openRow = null;
+const CAT_ORDER = {AOG:0, A:1, B:2, C:3, D:4, NIL:5};
+
+function openDefects(i){
+  const a = FLEET[i];
+  cur = {a, list: defectsFor(a)};
+  openRow = null;
+  $("#q").value = ""; $("#fCat").value = ""; $("#fStatus").value = "";
+
+  const head = $("#mHead"); head.className = "m-head " + a.status;
+  $("#dlgTitle").innerHTML = esc(a.reg) + ' <span class="msn">(MSN ' + a.msn + ")</span>";
+  const dep = shifted(a.dep), arr = shifted(a.arr);
+  $("#mSub").innerHTML = [
+    "<span>Type <b>A" + esc(a.type) + "</b></span>",
+    a.to ? "<span>Route <b>" + esc(a.from) + " → " + esc(a.to) + "</b></span>" : "<span>Station <b>" + esc(a.from) + "</b></span>",
+    "<span>" + (a.to ? "STD" : "Since") + " <b>" + dmyhm(dep) + "</b></span>",
+    "<span>" + (a.to ? "STA" : "ETR") + " <b>" + dmyhm(arr) + "</b></span>",
+    "<span>Daily <b>" + checkLabel(a.dy) + "</b> · Weekly <b>" + checkLabel(a.wy) + "</b></span>",
+    a.flight ? "<span>Flight <b>" + esc(a.flight) + "</b></span>" : "",
+    a.project ? "<span>Project <b>" + esc(a.project) + "</b></span>" : ""
+  ].join("");
+  $("#mStatus").textContent = STATUS[a.status].label + (a.note && !a.project ? " · " + a.note : "");
+  $("#apiPath").textContent = "fleetstatus.aviation.aero/api/amos/defects?reg=" + a.reg + "&state=open";
+
+  const now = Date.now(), L = cur.list;
+  const over = L.filter(d => d.due && d.due < now).length;
+  const soon = L.filter(d => d.due && d.due >= now && d.due - now < 864e5).length;
+  const kp = (k, v, c="") => `<div class="kpi ${c}"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  $("#kpis").innerHTML =
+    kp("Open defects", L.length) +
+    kp("AOG items", L.filter(d => d.cat === "AOG").length, L.some(d => d.cat === "AOG") ? "bad" : "") +
+    kp("MEL deferred", L.filter(d => "ABCD".includes(d.cat)).length) +
+    kp("Overdue", over, over ? "bad" : "") +
+    kp("Due < 24h", soon, soon ? "warn" : "") +
+    kp("Parts on order", L.filter(d => d.status === "Parts on order").length);
+
+  renderRows();
+  dlg.showModal();
+  dlg.querySelector(".m-body").scrollTop = 0;
+}
+
+function renderRows(){
+  const q = $("#q").value.trim().toLowerCase();
+  const fc = $("#fCat").value, fs = $("#fStatus").value;
+  const now = Date.now();
+  const rows = cur.list.filter(d =>
+      (!fc || d.cat === fc) && (!fs || d.status === fs) &&
+      (!q || [d.no, d.wo, d.ata, d.title, d.desc, d.pn, d.mel, d.station].join(" ").toLowerCase().includes(q)))
+    .sort((x, y) => {
+      let a = x[sortKey], b = y[sortKey];
+      if (sortKey === "cat"){ a = CAT_ORDER[a]; b = CAT_ORDER[b]; }
+      if (sortKey === "due"){ a = a ? +a : -Infinity; b = b ? +b : -Infinity; }
+      if (sortKey === "raised"){ a = +a; b = +b; }
+      return (a < b ? -1 : a > b ? 1 : 0) * sortDir;
+    });
+
+  document.querySelectorAll(".defects th[data-sort]").forEach(th =>
+    th.querySelector(".arr").textContent = th.dataset.sort === sortKey ? (sortDir > 0 ? "▲" : "▼") : "");
+
+  const stCls = {"Open":"open","Deferred":"deferred","Parts on order":"parts","In work":"work","Awaiting inspection":"insp"};
+  $("#dBody").innerHTML = rows.length ? rows.map(d => {
+    let dueTxt = "Immediate", dueCls = "over";
+    if (d.due){
+      const left = d.due - now;
+      dueCls = left < 0 ? "over" : left < 864e5 ? "soon" : "";
+      dueTxt = dmy(d.due) + (left < 0 ? " · overdue" : "");
+    }
+    const catTxt = d.cat === "AOG" ? "AOG" : d.cat === "NIL" ? "Non-MEL" : "MEL " + d.cat;
+    const isOpen = openRow === d.no;
+    return `<tr class="row${isOpen ? " open" : ""}" data-no="${d.no}" tabindex="0" aria-expanded="${isOpen}">
+        <td class="mono" data-l="Defect no.">${d.no}</td>
+        <td class="mono" data-l="ATA">${d.ata}</td>
+        <td class="desc"><b>${esc(d.title)}</b><span>${esc(d.station)} · ${esc(d.reporter)}</span></td>
+        <td data-l="Category"><span class="tag ${d.cat === "AOG" ? "aog" : d.cat === "NIL" ? "nil" : d.cat}">${catTxt}</span></td>
+        <td data-l="Raised">${dmy(d.raised)}</td>
+        <td data-l="Due / limit" class="due ${dueCls}">${dueTxt}</td>
+        <td data-l="Status"><span class="st ${stCls[d.status]}">${d.status}</span></td>
+      </tr>` + (isOpen ? `<tr class="detail"><td colspan="7"><div class="inner">
+        <div class="f wide"><div class="k">Defect description</div><div class="v">${esc(d.desc)}</div></div>
+        <div class="f wide"><div class="k">Required action</div><div class="v">${esc(d.action)}</div></div>
+        <div class="f"><div class="k">Work order</div><div class="v mono">${d.wo}</div></div>
+        <div class="f"><div class="k">Tech log page</div><div class="v mono">${d.tlp}</div></div>
+        <div class="f"><div class="k">MEL / CDL reference</div><div class="v mono">${d.mel}</div></div>
+        <div class="f"><div class="k">Raised</div><div class="v">${dmyhm(d.raised)} UTC at ${esc(d.station)}</div></div>
+        <div class="f"><div class="k">Reported by</div><div class="v">${esc(d.reporter)}</div></div>
+        <div class="f"><div class="k">Parts</div><div class="v">${esc(d.parts)}</div></div>
+        <div class="f"><div class="k">Estimated man-hours</div><div class="v">${d.mh} MH</div></div>
+        <div class="f"><div class="k">Deferral limit</div><div class="v">${d.due ? dmyhm(d.due) + " UTC" : "No deferral — aircraft grounded"}</div></div>
+      </div></td></tr>` : "");
+  }).join("") : '<tr><td colspan="7" class="none">No defects match the current filters.</td></tr>';
+
+  $("#mCount").textContent = "Showing " + rows.length + " of " + cur.list.length + " open defects · AMOS last sync " + hhmm(lastSync) + " UTC";
+}
+
+$("#dBody").addEventListener("click", e => {
+  const tr = e.target.closest("tr.row"); if (!tr) return;
+  openRow = openRow === tr.dataset.no ? null : tr.dataset.no;
+  renderRows();
+  const el = $("#dBody").querySelector(`tr.row[data-no="${openRow || tr.dataset.no}"]`);
+  el && el.focus({preventScroll:true});
+});
+$("#dBody").addEventListener("keydown", e => {
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches("tr.row")){ e.preventDefault(); e.target.click(); }
+});
+document.querySelectorAll(".defects th[data-sort]").forEach(th => th.addEventListener("click", () => {
+  const k = th.dataset.sort;
+  sortDir = sortKey === k ? -sortDir : 1; sortKey = k; renderRows();
+}));
+["q","fCat","fStatus"].forEach(id => $("#" + id).addEventListener("input", renderRows));
+$("#mClose").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+
+/* ------------------------------------------------------------------
+   Boot
+------------------------------------------------------------------ */
+buildLegend();
+renderTiles();
+tick();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+})();
+</script>
+</body>
+</html>
