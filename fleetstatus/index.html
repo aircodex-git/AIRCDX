@@ -433,30 +433,30 @@ const ORDER = Object.keys(STATUS);
 ------------------------------------------------------------------ */
 const BASE_DAY = Date.UTC(2024, 9, 20);
 const FLEET = [
-  {reg:"ESSBX", msn:5348, type:"320", status:"aog",  from:"BLR", to:"LKO", dep:"2024-10-21T00:15", arr:"2024-10-21T02:40", dy:7,   wy:150, defects:15, note:"Engine #1 acoustic lining damaged", station:"BLR"},
+  {reg:"TCNBX", msn:5348, type:"320", status:"aog",  from:"BLR", to:"LKO", dep:"2024-10-21T00:15", arr:"2024-10-21T02:40", dy:7,   wy:150, defects:15, note:"Engine #1 acoustic lining damaged", station:"BLR"},
   {reg:"9HSLK", msn:3866, type:"320", status:"aog",  from:"DEL", to:"CJB", dep:"2024-10-20T23:40", arr:"2024-10-21T02:45", dy:45,  wy:148, defects:47, note:"Rejected takeoff - vent skin valve fault", station:"DEL"},
   {reg:"9HSLF", msn:3475, type:"320", status:"aog",  from:"DEL", to:"VNS", dep:"2024-10-20T23:25", arr:"2024-10-21T00:55", dy:18,  wy:146, defects:44, note:"Eng #2 fuel leak", station:"DEL"},
   {reg:"9HSLP", msn:3512, type:"320", status:"aog",  from:"GZT", to:"SAW", dep:"2024-10-20T18:50", arr:"2024-10-20T20:35", dy:22,  wy:96,  defects:31, note:"Eng #1 bleed valve inoperative", station:"GZT"},
-  {reg:"YLLCX", msn:2216, type:"321", status:"aog",  from:"SAW", to:"",    dep:"2024-10-15T18:40", arr:"2024-10-21T23:59", dy:-96, wy:27,  defects:42, note:"ENG #2 Attrition Lining Missing Material", station:"SAW"},
-  {reg:"YLLCR", msn:2233, type:"320", status:"air",  from:"ORY", to:"TUN", dep:"2024-10-20T20:45", arr:"2024-10-20T23:13", dy:28,  wy:120, defects:9,  flight:"TU723",  project:"PADHO"},
-  {reg:"YLLDK", msn:2975, type:"320", status:"air",  from:"ESB", to:"SAW", dep:"2024-10-20T20:20", arr:"2024-10-20T21:25", dy:36,  wy:72,  defects:12, flight:"VF3007", project:"PATKJ"},
-  {reg:"YLLDV", msn:5074, type:"321", status:"air",  from:"SAW", to:"ESB", dep:"2024-10-20T20:10", arr:"2024-10-20T21:24", dy:19,  wy:98,  defects:7,  flight:"PC2664", project:"PAPGS"},
+  {reg:"TCJFX", msn:2216, type:"321", status:"aog",  from:"SAW", to:"",    dep:"2024-10-15T18:40", arr:"2024-10-21T23:59", dy:-96, wy:27,  defects:42, note:"ENG #2 Attrition Lining Missing Material", station:"SAW"},
+  {reg:"TCJFR", msn:2233, type:"320", status:"air",  from:"ORY", to:"TUN", dep:"2024-10-20T20:45", arr:"2024-10-20T23:13", dy:28,  wy:120, defects:9,  flight:"TU723",  project:"PADHO"},
+  {reg:"S5AKD", msn:2975, type:"320", status:"air",  from:"ESB", to:"SAW", dep:"2024-10-20T20:20", arr:"2024-10-20T21:25", dy:36,  wy:72,  defects:12, flight:"VF3007", project:"PATKJ"},
+  {reg:"S5AKV", msn:5074, type:"321", status:"air",  from:"SAW", to:"ESB", dep:"2024-10-20T20:10", arr:"2024-10-20T21:24", dy:19,  wy:98,  defects:7,  flight:"PC2664", project:"PAPGS"},
   {reg:"9HCGF", msn:1017, type:"32X", status:"air",  from:"LEJ", to:"LNZ", dep:"2024-10-20T20:00", arr:"2024-10-20T21:08", dy:40,  wy:160, defects:5,  flight:"X34417", project:"PACGX"},
   {reg:"9HGEP", msn:42830,type:"7M8", status:"air",  from:"SAW", to:"GZT", dep:"2024-10-20T20:00", arr:"2024-10-20T21:43", dy:43,  wy:168, defects:3,  flight:"PC2182", project:"PAGEM"},
-  {reg:"YLLCN", msn:2380, type:"320", status:"air",  from:"AYT", to:"DUS", dep:"2024-10-20T19:35", arr:"2024-10-20T23:05", dy:31,  wy:110, defects:11, flight:"XQ982",  project:"PAXQD"},
+  {reg:"TCJFN", msn:2380, type:"320", status:"air",  from:"AYT", to:"DUS", dep:"2024-10-20T19:35", arr:"2024-10-20T23:05", dy:31,  wy:110, defects:11, flight:"XQ982",  project:"PAXQD"},
   {reg:"9HSLD", msn:3398, type:"320", status:"air",  from:"BOM", to:"GOI", dep:"2024-10-20T20:55", arr:"2024-10-20T22:05", dy:26,  wy:130, defects:18, flight:"6E5391", project:"PAIGO"},
   {reg:"LPTNB", msn:6120, type:"321", status:"air",  from:"LIS", to:"FNC", dep:"2024-10-20T20:30", arr:"2024-10-20T22:15", dy:34,  wy:88,  defects:6,  flight:"TP1693", project:"PATPL"},
-  {reg:"ESSBR", msn:5412, type:"320", status:"ops",  from:"TLL", to:"ARN", dep:"2024-10-21T05:40", arr:"2024-10-21T06:35", dy:47,  wy:140, defects:8,  flight:"LO7702", project:"PALOT"},
-  {reg:"YLLDQ", msn:3011, type:"320", status:"ops",  from:"SAW", to:"ADB", dep:"2024-10-21T04:15", arr:"2024-10-21T05:25", dy:30,  wy:50,  defects:14, flight:"PC2004", project:"PAPGS"},
+  {reg:"S5ABR", msn:5412, type:"320", status:"ops",  from:"TLL", to:"ARN", dep:"2024-10-21T05:40", arr:"2024-10-21T06:35", dy:47,  wy:140, defects:8,  flight:"LO7702", project:"PALOT"},
+  {reg:"S5AKQ", msn:3011, type:"320", status:"ops",  from:"SAW", to:"ADB", dep:"2024-10-21T04:15", arr:"2024-10-21T05:25", dy:30,  wy:50,  defects:14, flight:"PC2004", project:"PAPGS"},
   {reg:"9HGEW", msn:42861,type:"7M8", status:"ops",  from:"MLA", to:"FCO", dep:"2024-10-21T06:05", arr:"2024-10-21T07:30", dy:46,  wy:162, defects:2,  flight:"KM612",  project:"PAKMM"},
   {reg:"9HCGJ", msn:1102, type:"32X", status:"ops",  from:"LNZ", to:"LEJ", dep:"2024-10-21T05:10", arr:"2024-10-21T06:20", dy:21,  wy:118, defects:4,  flight:"X34418", project:"PACGX"},
-  {reg:"YLLCB", msn:2102, type:"320", status:"line", from:"ESB", to:"",    dep:"2024-10-20T16:05", arr:"2024-10-21T03:00", dy:2,   wy:60,  defects:19, note:"Daily check + wheel #3 change", station:"ESB"},
+  {reg:"TCJFB", msn:2102, type:"320", status:"line", from:"ESB", to:"",    dep:"2024-10-20T16:05", arr:"2024-10-21T03:00", dy:2,   wy:60,  defects:19, note:"Daily check + wheel #3 change", station:"ESB"},
   {reg:"9HSLT", msn:3990, type:"320", status:"line", from:"DEL", to:"",    dep:"2024-10-20T19:10", arr:"2024-10-21T01:30", dy:12,  wy:20,  defects:23, note:"Weekly check · brake wear pin", station:"DEL"},
   {reg:"LPTNF", msn:6177, type:"321", status:"line", from:"LIS", to:"",    dep:"2024-10-20T21:00", arr:"2024-10-21T04:45", dy:9,   wy:130, defects:10, note:"Cabin PSU rectification", station:"LIS"},
-  {reg:"YLLDA", msn:2840, type:"320", status:"base", from:"KUN", to:"",    dep:"2024-10-02T09:00", arr:"2024-11-04T18:00", dy:-420,wy:-400,defects:137,note:"C-Check · Hangar 2 · RTS Nov 04", station:"KUN"},
+  {reg:"TCNDA", msn:2840, type:"320", status:"base", from:"KUN", to:"",    dep:"2024-10-02T09:00", arr:"2024-11-04T18:00", dy:-420,wy:-400,defects:137,note:"C-Check · Hangar 2 · RTS Nov 04", station:"KUN"},
   {reg:"9HSLB", msn:3244, type:"320", status:"base", from:"MLA", to:"",    dep:"2024-10-12T07:00", arr:"2024-10-26T15:00", dy:-200,wy:-190,defects:88, note:"2Y check + landing gear swap", station:"MLA"},
-  {reg:"ESSBG", msn:5190, type:"320", status:"parked",from:"TLL",to:"",    dep:"2024-09-18T12:00", arr:"2024-11-15T12:00", dy:-760,wy:-740,defects:26, note:"Parked · awaiting lease return", station:"TLL"},
-  {reg:"YLLCE", msn:2045, type:"321", status:"parked",from:"SAW",to:"",    dep:"2024-10-06T22:40", arr:"2024-10-30T08:00", dy:-330,wy:-320,defects:21, note:"Parked · winter storage prog.", station:"SAW"}
+  {reg:"S5ABG", msn:5190, type:"320", status:"parked",from:"TLL",to:"",    dep:"2024-09-18T12:00", arr:"2024-11-15T12:00", dy:-760,wy:-740,defects:26, note:"Parked · awaiting lease return", station:"TLL"},
+  {reg:"TCJFE", msn:2045, type:"321", status:"parked",from:"SAW",to:"",    dep:"2024-10-06T22:40", arr:"2024-10-30T08:00", dy:-330,wy:-320,defects:21, note:"Parked · winter storage prog.", station:"SAW"}
 ];
 
 /* ------------------------------------------------------------------
