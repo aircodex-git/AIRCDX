@@ -18,7 +18,7 @@
 
   --aog:#e2342f;       --aog-dark:#b8201c;
   --air:#3dbb62;       --air-dark:#2a9a4c;
-  --ops:#f4f6fb;       --ops-dark:#dfe4ef;
+  --ops:#d3d9e6;       --ops-dark:#bcc4d6;
   --line-mx:#2f8fe0;   --line-mx-dark:#1d6fb8;
   --base-mx:#e0a526;   --base-mx-dark:#b8841a;
   --parked:#9a9ca6;    --parked-dark:#7a7c86;
@@ -94,7 +94,7 @@ button{font:inherit;color:inherit}
 }
 .sw.aog{background:var(--aog)}
 .sw.air{background:var(--air)}
-.sw.ops{background:transparent}
+.sw.ops{background:var(--ops)}
 .sw.line{background:var(--line-mx)}
 .sw.base{background:repeating-linear-gradient(135deg,var(--base-mx) 0 5px,#c98f14 5px 8px)}
 .sw.parked{background:var(--parked)}
@@ -218,7 +218,7 @@ dialog::backdrop{background:rgba(8,10,40,.7);backdrop-filter:blur(3px)}
   display:grid;grid-template-columns:1fr auto;gap:10px 20px;align-items:start;
 }
 .m-head.air{--c:var(--air)}
-.m-head.ops{--c:#e6e9f2;--fg:#1b1f63}
+.m-head.ops{--c:var(--ops);--fg:#1b1f63}
 .m-head.line{--c:var(--line-mx)}
 .m-head.base{--c:var(--base-mx);--fg:#2a1d00}
 .m-head.parked{--c:var(--parked)}
