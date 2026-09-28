@@ -340,7 +340,7 @@ table.defects{width:100%;border-collapse:separate;border-spacing:0;font-size:13.
     <div class="clock">
       <div>
         <span id="clock">UTC --/--/-- --:--:--</span>
-        <span class="sync-note" id="syncNote">AMOS sync —</span>
+        <span class="sync-note" id="syncNote">Maintenance and Operations systems sync —</span>
       </div>
       <button class="refresh" id="refresh" title="Refresh from AMOS" aria-label="Refresh from AMOS">
         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>
@@ -595,7 +595,7 @@ function tick(){
   $("#clock").textContent = "UTC " + pad(d.getUTCDate()) + "/" + pad(d.getUTCMonth()+1) + "/" +
     String(d.getUTCFullYear()).slice(2) + " " + pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes()) + ":" + pad(d.getUTCSeconds());
   const ago = Math.round((d - lastSync) / 1000);
-  $("#syncNote").textContent = "AMOS sync " + (ago < 5 ? "just now" : ago < 60 ? ago + "s ago" : Math.floor(ago/60) + "m ago");
+  $("#syncNote").textContent = "Maintenance and Operations systems sync " + (ago < 5 ? "just now" : ago < 60 ? ago + "s ago" : Math.floor(ago/60) + "m ago");
 }
 function sync(){
   const b = $("#refresh");
