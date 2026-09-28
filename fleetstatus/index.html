@@ -728,7 +728,7 @@ function openDefects(i){
     a.project ? "<span>Project <b>" + esc(a.project) + "</b></span>" : ""
   ].join("");
   $("#mStatus").textContent = STATUS[a.status].label + (a.note && !a.project ? " · " + a.note : "");
-  $("#apiPath").textContent = "fleetstatus.aviation.aero/api/amos/defects?reg=" + a.reg + "&state=open";
+  $("#apiPath").textContent = "fleetstatus.aviation.aero/api/mro/defects?reg=" + a.reg + "&state=open";
 
   const now = Date.now(), L = cur.list;
   const over = L.filter(d => d.due && d.due < now).length;
