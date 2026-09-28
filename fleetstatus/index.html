@@ -342,7 +342,7 @@ table.defects{width:100%;border-collapse:separate;border-spacing:0;font-size:13.
         <span id="clock">UTC --/--/-- --:--:--</span>
         <span class="sync-note" id="syncNote">Maintenance and Operations systems sync —</span>
       </div>
-      <button class="refresh" id="refresh" title="Refresh from AMOS" aria-label="Refresh from AMOS">
+      <button class="refresh" id="refresh" title="Refresh from Maintenance and Operations systems" aria-label="Refresh from Maintenance and Operations systems">
         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>
       </button>
     </div>
@@ -386,7 +386,7 @@ table.defects{width:100%;border-collapse:separate;border-spacing:0;font-size:13.
         <option>In work</option>
         <option>Awaiting inspection</option>
       </select>
-      <span class="src">Source: AMOS · <code id="apiPath"></code></span>
+      <span class="src">Source: Maintenance and Operations systems · <code id="apiPath"></code></span>
     </div>
     <table class="defects">
       <thead>
@@ -405,7 +405,7 @@ table.defects{width:100%;border-collapse:separate;border-spacing:0;font-size:13.
   </div>
   <div class="m-foot">
     <span id="mCount"></span>
-    <span>Click a row for full AMOS defect details · Esc to close</span>
+    <span>Click a row for full defect details · Esc to close</span>
   </div>
 </dialog>
 
@@ -797,7 +797,7 @@ function renderRows(){
       </div></td></tr>` : "");
   }).join("") : '<tr><td colspan="7" class="none">No defects match the current filters.</td></tr>';
 
-  $("#mCount").textContent = "Showing " + rows.length + " of " + cur.list.length + " open defects · AMOS last sync " + hhmm(lastSync) + " UTC";
+  $("#mCount").textContent = "Showing " + rows.length + " of " + cur.list.length + " open defects · Maintenance and Operations systems last sync " + hhmm(lastSync) + " UTC";
 }
 
 $("#dBody").addEventListener("click", e => {
