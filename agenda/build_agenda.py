@@ -18,7 +18,7 @@ CATEGORIES = {
     "Networking", "Airline Keynote", "Airport Keynote", "Loyalty", "Sustainability",
     "AI / ML", "Customer Experience", "IROPS", "Digital & IT", "Airport - Operations",
     "Airport & Airline Collaboration", "Airport - Traveller", "Retail", "Payments",
-    "Startup Theatre", "Ancillaries",
+    "Startup Theatre", "Ancillaries", "Innovation",
 }
 TIME_RE = re.compile(r"^(\d{1,2}):(\d{2})$")
 RANGE_RE = re.compile(r"^(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})$")
@@ -29,11 +29,12 @@ STATUS_LINES = {"Register", "Session Full", "Registered", "Leave table"}
 SKIP_LINES = {"Recommended", "Show more", "Show less"}
 # Company names that themselves contain a comma
 COMMA_COMPANIES = ["Edgar, Dunn & Company"]
-CORP_SUFFIX_RE = re.compile(r"^(Inc\.?|LLC|Ltd\.?|Limited|S\.A\.S)(\s.*)?$")
+CORP_SUFFIX_RE = re.compile(r"^(Inc\.?|LLC|Ltd\.?|Limited|S\.A\.S|S\.L\.)(\s.*)?$")
 FORMAT_KEYWORDS = [
-    ("interview", "CEO Interview"), ("fireside", "Fireside Chat"), ("panel", "Panel"),
+    ("interview", "Interview"), ("fireside", "Fireside Chat"), ("panel", "Panel"),
     ("presentation", "Presentation"), ("welcome", "Welcome"), ("remarks", "Chair Remarks"),
-    ("aviation connect", "Networking"),
+    ("aviation connect", "Networking"), ("competition", "Competition"), ("battle", "Competition"),
+    ("investor panel", "Panel"),
 ]
 
 
@@ -74,9 +75,9 @@ def normalise_room(raw):
     r = re.sub(r"^(Track \d+)\s*,\s*(Pavilion \d)$", r"\1 (\2)", r)
     r = re.sub(r"^(Track \d+)\s*\((Pavilion \d)\)$", r"\1 (\2)", r)
     r = re.sub(r"^Aviation Connect Zone,?\s*(Pavilion \d)$", r"Aviation Connect Zone (\1)", r)
-    if r in ("Keynote Stage, Pavilion 1", "Keynote Theatre (Pavilion 1)"):
+    if r in ("Keynote Stage, Pavilion 1", "Keynote Theatre (Pavilion 1)", "Keynote Stage (Pavilion 1)"):
         r = "Keynote Stage 1 (Pavilion 1)"
-    r = re.sub(r"^Roundtable area,\s*(Pavilion \d)$", r"Roundtable Area (\1)", r)
+    r = re.sub(r"^Round\s?table area,\s*(Pavilion \d)$", r"Roundtable Area (\1)", r, flags=re.I)
     pav = re.search(r"Pavilion \d", r)
     return r, pav.group(0) if pav else ""
 
