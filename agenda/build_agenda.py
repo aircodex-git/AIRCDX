@@ -307,9 +307,10 @@ def build():
         ("Days included", ", ".join(days) or "—"),
         ("Note", "Built from agenda text copied from the event hub. The site could not be fetched directly from this "
                  "environment. Speaker job titles/organisations are split from 'Name, Title, Company' on the site; "
-                 "'Additional speakers' counts names hidden behind '+N more' on the site (not listed here). Day 1 was "
-                 "copied with every 'Show more' expanded, so it has all speakers and full descriptions; Days 2 and 3 were "
-                 "copied collapsed and will be completed once re-copied the same way. "
+                 "'Additional speakers' counts names hidden behind '+N more' on the site (not listed here). Days 1 and 3, "
+                 "and Day 2 from 10:45, were copied with 'Show more' expanded (all speakers, full descriptions); "
+                 "Day 2 08:15-10:00 and the 16:25 agentic AI panel are still from the collapsed copy. Day 3 'Battle of the "
+                 "Apps' room comes from the first (collapsed) copy, as the expanded copy ended before the room line. "
                  "Registration numbers are a snapshot at the time of copying."),
     ]
     for r, (k, v) in enumerate(info, 3):
