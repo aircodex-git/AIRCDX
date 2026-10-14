@@ -18,23 +18,28 @@ CATEGORIES = {
     "Networking", "Airline Keynote", "Airport Keynote", "Loyalty", "Sustainability",
     "AI / ML", "Customer Experience", "IROPS", "Digital & IT", "Airport - Operations",
     "Airport & Airline Collaboration", "Airport - Traveller", "Retail", "Payments",
-    "Startup Theatre", "Ancillaries", "Innovation",
+    "Startup Theatre", "Ancillaries", "Innovation", "Crew Summit", "Ground Ops", "Marketing",
+    "Cyber Security", "IFEC", "Digital Operations", "Revenue Management", "Talent",
 }
 TIME_RE = re.compile(r"^(\d{1,2}):(\d{2})$")
 RANGE_RE = re.compile(r"^(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})$")
-LOC_RE = re.compile(r"^(Track\s?\d|Keynote (Stage|Theatre)|Startup Theatre$|Aviation Connect Zone|Roundtable area)")
+LOC_RE = re.compile(r"^(Track\s?\d|Keynote\b|Startup Theatre$|Aviation Connect Zone|Round\s?table (area|zone)|Pavilion \d, Track)", re.I)
 MORE_RE = re.compile(r"^\+(\d+) more speakers?$")
-REG_RE = re.compile(r"^(\d+)/(\d+) registered$")
-STATUS_LINES = {"Register", "Session Full", "Registered", "Leave table"}
+REG_RE = re.compile(r"^(\d+)/(\d+) registered(?: · \d+ left)?$")
+STATUS_LINES = {"Register", "Session Full", "Registered", "Leave table", "Started"}
+# Page chrome (day tabs, filters) copied along with the agenda
+JUNK_RE = re.compile(r"^(travelX|Day \d|All sessions|Saved|Filters|\d+ of \d+ sessions)$")
+# Description text that appears where speakers are expected (session with no room listed)
+DESC_START_RE = re.compile(r"^\d+-minute ")
 SKIP_LINES = {"Recommended", "Show more", "Show less"}
 # Company names that themselves contain a comma
-COMMA_COMPANIES = ["Edgar, Dunn & Company"]
+COMMA_COMPANIES = ["Edgar, Dunn & Company", "Travel Insured International, a Crum & Forster Company"]
 CORP_SUFFIX_RE = re.compile(r"^(Inc\.?|LLC|Ltd\.?|Limited|S\.A\.S|S\.L\.)(\s.*)?$")
 FORMAT_KEYWORDS = [
     ("interview", "Interview"), ("fireside", "Fireside Chat"), ("panel", "Panel"),
     ("presentation", "Presentation"), ("welcome", "Welcome"), ("remarks", "Chair Remarks"),
     ("aviation connect", "Networking"), ("competition", "Competition"), ("battle", "Competition"),
-    ("investor panel", "Panel"),
+    ("investor panel", "Panel"), ("workshop", "Workshop"), ("reception", "Networking"),
 ]
 
 
@@ -70,16 +75,22 @@ def split_speaker(line):
 def normalise_room(raw):
     if not raw:
         return "", ""
-    r = raw.replace("Pavillion", "Pavilion").replace("Pav 1", "Pavilion 1").replace("Pav 2", "Pavilion 2")
-    r = re.sub(r"Track\s?(\d+)", r"Track \1", r)
-    r = re.sub(r"^(Track \d+)\s*,\s*(Pavilion \d)$", r"\1 (\2)", r)
-    r = re.sub(r"^(Track \d+)\s*\((Pavilion \d)\)$", r"\1 (\2)", r)
-    r = re.sub(r"^Aviation Connect Zone,?\s*(Pavilion \d)$", r"Aviation Connect Zone (\1)", r)
-    if r in ("Keynote Stage, Pavilion 1", "Keynote Theatre (Pavilion 1)", "Keynote Stage (Pavilion 1)"):
-        r = "Keynote Stage 1 (Pavilion 1)"
-    r = re.sub(r"^Round\s?table area,\s*(Pavilion \d)$", r"Roundtable Area (\1)", r, flags=re.I)
-    pav = re.search(r"Pavilion \d", r)
-    return r, pav.group(0) if pav else ""
+    m_pav = re.search(r"Pav(?:ill?ion)?\s?(\d)", raw, re.I)
+    pav = f"Pavilion {m_pav.group(1)}" if m_pav else ""
+    m_track = re.search(r"Track\s?(\d+)", raw, re.I)
+    if m_track:
+        r = f"Track {m_track.group(1)}"
+    elif raw.lower().startswith("keynote"):
+        # The keynote stage in Pavilion N is "Keynote Stage N"
+        m_num = re.match(r"Keynote(?: Stage| Theatre)?\s?(\d)", raw, re.I)
+        r = f"Keynote Stage {m_num.group(1) if m_num else (m_pav.group(1) if m_pav else '')}".strip()
+    elif re.match(r"Round\s?table", raw, re.I):
+        r = "Roundtable Area"
+    elif raw.startswith("Aviation Connect Zone"):
+        r = "Aviation Connect Zone"
+    else:
+        r = raw
+    return (f"{r} ({pav})" if pav else r), pav
 
 
 def session_format(category, title):
@@ -93,8 +104,16 @@ def session_format(category, title):
 
 
 def parse_day(text, day_label):
-    lines = [l.strip() for l in text.splitlines()]
-    lines = [l for l in lines if l and l not in SKIP_LINES]
+    raw = [l.strip() for l in text.splitlines()]
+    # On the site a stream/category label is always followed by a blank line
+    cat_like = set()
+    lines = []
+    for n, l in enumerate(raw):
+        if not l or l in SKIP_LINES or JUNK_RE.match(l):
+            continue
+        if n + 1 < len(raw) and raw[n + 1] == "" and not TIME_RE.match(l) and not RANGE_RE.match(l):
+            cat_like.add(len(lines))
+        lines.append(l)
     sessions, cur_time, cur, mode = [], None, None, "expect_cat"
     i = 0
 
@@ -135,7 +154,8 @@ def parse_day(text, day_label):
                     while i + 1 < len(lines) and lines[i + 1] in STATUS_LINES:
                         i += 1
                         statuses.append(lines[i])
-                    s["status"] = "Full" if "Session Full" in statuses else "Open"
+                    s["status"] = ("Full" if "Session Full" in statuses
+                                   else "Started" if "Started" in statuses else "Open")
                     s["you_registered"] = "Registered" in statuses
                     m_tab = re.match(r"^Table\s?0*(\d+):\s*", title)
                     s["table_no"] = int(m_tab.group(1)) if m_tab else None
@@ -155,8 +175,11 @@ def parse_day(text, day_label):
             cur["room_raw"], mode = line, "after_location"
         elif mode == "speakers" and MORE_RE.match(line):
             cur["hidden"] = int(MORE_RE.match(line).group(1))
-        elif line in CATEGORIES and mode in ("expect_cat", "speakers", "after_location"):
+        elif (line in CATEGORIES or i in cat_like) and mode in ("expect_cat", "speakers", "after_location"):
             cur, mode = new_session(line), "expect_title"
+        elif mode == "speakers" and DESC_START_RE.match(line):
+            cur["description"].append(line)
+            mode = "after_location"
         elif mode == "speakers":
             cur["speakers"].append(split_speaker(line))
         elif mode == "after_location":
@@ -168,9 +191,8 @@ def parse_day(text, day_label):
     for s in sessions:
         s["room"], s["pavilion"] = normalise_room(s["room_raw"])
         s["format"] = s["kind"] if s["kind"] != "Session" else session_format(s["category"], s["title"])
-        desc = " ".join(s["description"])
-        s["description"] = "\n".join("• " + p.strip() if n else p.strip()
-                                     for n, p in enumerate(desc.split(" • "))) if desc else ""
+        parts = [p.strip() for line in s["description"] for p in line.split(" • ") if p.strip()]
+        s["description"] = parts[0] if len(parts) == 1 else "\n".join("• " + p for p in parts)
     return sessions
 
 
@@ -285,7 +307,9 @@ def build():
         ("Days included", ", ".join(days) or "—"),
         ("Note", "Built from agenda text copied from the event hub. The site could not be fetched directly from this "
                  "environment. Speaker job titles/organisations are split from 'Name, Title, Company' on the site; "
-                 "'Additional speakers' are names hidden behind '+N more' on the site and are not listed here. "
+                 "'Additional speakers' counts names hidden behind '+N more' on the site (not listed here). Day 1 was "
+                 "copied with every 'Show more' expanded, so it has all speakers and full descriptions; Days 2 and 3 were "
+                 "copied collapsed and will be completed once re-copied the same way. "
                  "Registration numbers are a snapshot at the time of copying."),
     ]
     for r, (k, v) in enumerate(info, 3):
