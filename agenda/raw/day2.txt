@@ -231,8 +231,10 @@ Human connection, effortless digital experiences: premium CX in the age of AI
 Bethan Lynch, VP Customer Experience & Loyalty, Virgin Atlantic
 Jerry Angrave, Customer Experience Director, Empathyce
 Track 2 (Pavilion 1)
-AI will transform how consumers plan, shop and make the most of travel. But what does the future look like for premium travellers who expect personalised, memorable experiences and genuine emotional connection? • In this fireside chat, Virgin Atlantic’s VP Customer Experience & Loyalty, Bethan Lynch, joins Jerry Angrave to share how the airline is embracing innovative use of AI to serve its customers more personally and seamlessly, while upholding its unique culture, built around its people and their unmistakeable warmth and flair. On its journey to become the most loved travel company, Bethan will explain how Virgin Atlantic sees AI as an extension of the human-centred experience. An opportunity to remove friction and make every interaction meaningful and distinctly Virgin, while enabling people to do what only people can do: create trust, build connection and make customers feel genuinely cared for. • Combining humanity with innovation, also hear how Virgin Atlantic is doubling down on its premium experience across the customer journey, including the rollout of free, high speed Starlink Wi-Fi, new expanded Upper and Premium cabins, investment in award-winning Clubhouses, and a new app integrated with Virgin Atlantic Concierge, powered by OpenAI and built in partnership with Tomoro. Through its brand, people, and the award-winning experience they deliver, Virgin Atlantic is creating emotional connections that last long after the journey ends – building loyalty and enticing customers to choose Virgin Atlantic time and again.
-Show more
+AI will transform how consumers plan, shop and make the most of travel. But what does the future look like for premium travellers who expect personalised, memorable experiences and genuine emotional connection?
+In this fireside chat, Virgin Atlantic’s VP Customer Experience & Loyalty, Bethan Lynch, joins Jerry Angrave to share how the airline is embracing innovative use of AI to serve its customers more personally and seamlessly, while upholding its unique culture, built around its people and their unmistakeable warmth and flair. On its journey to become the most loved travel company, Bethan will explain how Virgin Atlantic sees AI as an extension of the human-centred experience. An opportunity to remove friction and make every interaction meaningful and distinctly Virgin, while enabling people to do what only people can do: create trust, build connection and make customers feel genuinely cared for.
+Combining humanity with innovation, also hear how Virgin Atlantic is doubling down on its premium experience across the customer journey, including the rollout of free, high speed Starlink Wi-Fi, new expanded Upper and Premium cabins, investment in award-winning Clubhouses, and a new app integrated with Virgin Atlantic Concierge, powered by OpenAI and built in partnership with Tomoro. Through its brand, people, and the award-winning experience they deliver, Virgin Atlantic is creating emotional connections that last long after the journey ends – building loyalty and enticing customers to choose Virgin Atlantic time and again.
+Show less
 Loyalty
 
 Fireside Chat: The future outlook for loyalty at Abra Group
@@ -342,20 +344,34 @@ Panel: Strategy in a Changing Commercial Landscape – What will define the airl
 Nejib Ben-Khedher, Divisional Senior Vice President, Skywards, EMIRATES GROUP
 Ralph Piket, Chief Loyalty Officer, Abra Group
 Pedro Ribeiro, Loyalty Director, Tap Air Portugal
-+4 more speakers
+Cristina Yoshida, Director of Loyalty, Azul Linhas Aereas Brasileiras
+Marcus Puffer, Vice President & Head of Loyalty Management Solutions, IBS Software
+David Glantz, Director Business Development & Consulting​, Loyalty Partner Solutions GmbH
+Harald Deprosse, Partner, Envolved GmbH
 Track 3 (Pavillion 1)
-Process optimisation: How can we make smoother processes, where can I go with new business models, what could be used better • Moving loyalty closer to the commercial and digital core: aligning with revenue management, sales, and marketing • How can programs cut through AI buzzwords to examine real use cases and the ROI metrics that actually matter? • What will define loyalty leadership in the next decade?
-Show more
+Process optimisation: How can we make smoother processes, where can I go with new business models, what could be used better
+Moving loyalty closer to the commercial and digital core: aligning with revenue management, sales, and marketing
+How can programs cut through AI buzzwords to examine real use cases and the ROI metrics that actually matter?
+What will define loyalty leadership in the next decade?
+Show less
 Airport - Traveller
 
 Panel: The airport terminal is changing – how are airports rethinking non-aero revenue with the wider passenger experience in mind?
 Arturs Saveljevs, Board member and CCO, Riga International Airport
 Jorn Korbi, VP Digital Commercialization, Avinor
 Gintare Norvilaite-Tautevice, Chief Commercial Officer, Lithuanian Airports
-+3 more speakers
+James von der Fecht, Product Director, cavu
+Philippe Guertin, Vice president Business Relations, Plaza Premium Group
+Peta Wolmarans, Vice President, Ricondo
 Track 7 (Pavilion 2)
-As airports digitise more of the journey, how are they rethinking retail, services and the overall passenger experience? • How do airports balance dwell time, flow and frictionless processing with the need to protect non-aero revenue? • Lounges and premium services are growing- how are airports working with partners to expand these offerings? • What new partnership models are emerging between airports, brands and commercial operators? • Where is the gap between measured performance (OTP, flow) and perceived experience? • How should we evolve when passenger expectations, capacity constraints and digital journeys are shifting? • Where are airports seeing the most promising opportunities for future non-aero growth?
-Show more
+As airports digitise more of the journey, how are they rethinking retail, services and the overall passenger experience?
+How do airports balance dwell time, flow and frictionless processing with the need to protect non-aero revenue?
+Lounges and premium services are growing- how are airports working with partners to expand these offerings?
+What new partnership models are emerging between airports, brands and commercial operators?
+Where is the gap between measured performance (OTP, flow) and perceived experience?
+How should we evolve when passenger expectations, capacity constraints and digital journeys are shifting?
+Where are airports seeing the most promising opportunities for future non-aero growth?
+Show less
 Payments
 
 Presentation: Payments that drive the CFO agenda
@@ -367,8 +383,14 @@ Presentation: A Shared Flight Path: Creating Value Through Airline–Airport Col
 Jitender Mohan, EVP & Business Unit Head, Travel & Hospitality, WNS Global Services (UK) Limited
 Matthew Robinson, Vice President, Airports, Capgemini
 Keynote Stage 2 (Pavilion 2)
-Airlines and airports share a common goal of delivering seamless passenger journeys and operational excellence, yet often operate with different priorities and systems. • As capacity constraints, operational complexity and passenger expectations intensify, greater collaboration presents an opportunity to unlock shared value. • This session explores how airlines and airports can move beyond individual optimisation towards connected operations, shared insights and strategic partnerships that enhance passenger experience, improve efficiency and drive sustainable growth. • Key Takeaways • Shared Value: Moving beyond individual optimisation to unlock mutual benefits for airlines, airports and passengers. • Passenger Experience & Operational Excellence: Enabling seamless journeys, improved efficiency and better capacity utilisation through closer collaboration. • Data-Driven Collaboration: Leveraging shared insights, connected technologies and strategic partnerships to drive smarter decisions and sustainable growth.
-Show more
+Airlines and airports share a common goal of delivering seamless passenger journeys and operational excellence, yet often operate with different priorities and systems.
+As capacity constraints, operational complexity and passenger expectations intensify, greater collaboration presents an opportunity to unlock shared value.
+This session explores how airlines and airports can move beyond individual optimisation towards connected operations, shared insights and strategic partnerships that enhance passenger experience, improve efficiency and drive sustainable growth.
+Key Takeaways
+Shared Value: Moving beyond individual optimisation to unlock mutual benefits for airlines, airports and passengers.
+Passenger Experience & Operational Excellence: Enabling seamless journeys, improved efficiency and better capacity utilisation through closer collaboration.
+Data-Driven Collaboration: Leveraging shared insights, connected technologies and strategic partnerships to drive smarter decisions and sustainable growth.
+Show less
 Startup Theatre
 
 ONE Order, Many Products: Holidays and Ancillaries in a Single Airline Order
@@ -407,10 +429,13 @@ Panel: How can we enable customers to feel in-control during unavoidable disrupt
 Sheryl Lee, Senior Manager- IRROPS Programs & Strategy, United Airlines
 Emre Devrim, Product & Customer Experience Manager, Ajet
 Katy Cardwell, Director of Digital Customer Experience, British Airways
-+2 more speakers
+Tomasz Pawliszyn, Chief Executive Officer, Yuvo Group
+Malek Trimeche, Aviation entrepreneur / Podcast Host : The Gate Talk, Malek Trimeche
 Track 4 (Pavilion 1)
-How is technology helping airlines to improve the impact and experience of disruption on cutomers? • Empowering customers with facts, options and choice: is this vision achievable? • The power of self-service: how have airlines empowered customers to determine their own experience
-Show more
+How is technology helping airlines to improve the impact and experience of disruption on cutomers?
+Empowering customers with facts, options and choice: is this vision achievable?
+The power of self-service: how have airlines empowered customers to determine their own experience
+Show less
 Airline Keynote
 
 CEO Interview: Marcus Schnabel, CEO, SunExpress
@@ -423,10 +448,15 @@ Panel: Digital identity in aviation – who builds the trust layer for seamless 
 Maurice Jenkins, Chief Innovation Officer, Miami International Airport
 Amin Lalani, Product Leader of Airport & Sky Club Digital Products & Experiences, Delta Air Lines
 Lisette Looren de Jong, Programme Manager Innovation Border Management, Ministry of Justice and Security
-+2 more speakers
+Vladimir Stojkovski, SVP, Product, CLEAR
+Annet Steenbergen, Independent advisor Digital Identity (Wallets) and travel, Independent
 Keynote Stage 2 (Pavilion 2)
-What has changed recently that could finally enable broader biometric travel deployment? • Global interoperability: what role should standards like IATA One ID, ICAO Digital Travel Credentials and digital identity wallets play? • What data exchange and connectivity infrastructure is needed to link airlines, airports and border agencies? • Who ultimately owns and operates digital identity infrastructure across the ecosystem - airlines, airports, governments or global bodies? • Looking ahead to 2030, will passengers realistically be able to travel end-to-end without presenting a traditional passport?
-Show more
+What has changed recently that could finally enable broader biometric travel deployment?
+Global interoperability: what role should standards like IATA One ID, ICAO Digital Travel Credentials and digital identity wallets play?
+What data exchange and connectivity infrastructure is needed to link airlines, airports and border agencies?
+Who ultimately owns and operates digital identity infrastructure across the ecosystem - airlines, airports, governments or global bodies?
+Looking ahead to 2030, will passengers realistically be able to travel end-to-end without presenting a traditional passport?
+Show less
 Payments
 
 Presentation: Beyond Legacy: The Uncomfortable Truth About Airline Payments
@@ -434,24 +464,29 @@ Victor Gaarenstroom, Global Travel & Mobility Lead, adyen
 Greg Toussaint, Director, Edgar, Dunn & Company
 Track 6 (Pavillion 1)
 Fresh off the press: Adyen and Edgar, Dunn & Company explore evolving traveler expectations and how airlines can break free from legacy payments that hold back innovation, speed and performance, and unlock the next frontier in airline payments.
-Show more
+Show less
 Retail
 
 Next-gen ancillaries: algorithmic pricing, automation and regulatory shifts
 Julio Rodriguez, Chief Commercial Strategy Officer, IAG
 Tiddo Veldhuis, VP Offer Management & Ancillaries, Air France KLM
 Juan Pablo Lafosse, CEO, TravelX
-+2 more speakers
+Charles Ruesch, Senior Director, Offer & Order Transition, FLYR
+Dennis Cary, Managing Director, Cary Strategic Advisory
 Track 5 (Pavilion 1)
-How will new baggage regulations impact airlines’ revenue models and pricing strategies? • Could predictive analytics help to drive the purchase of premium services? • Can AI help to make prices clearer while still allowing airlines to offer unbundled ancillaries? • How can airlines integrate high-margin lifestyle ancillaries, such as hotels or experiences, directly into the booking flow? • How can real-time data orchestration automate instant payouts for flight delays to turn disruption into a service win?
-Show more
+How will new baggage regulations impact airlines’ revenue models and pricing strategies?
+Could predictive analytics help to drive the purchase of premium services?
+Can AI help to make prices clearer while still allowing airlines to offer unbundled ancillaries?
+How can airlines integrate high-margin lifestyle ancillaries, such as hotels or experiences, directly into the booking flow?
+How can real-time data orchestration automate instant payouts for flight delays to turn disruption into a service win?
+Show less
 Digital & IT
 
 The human experience, both sides: where AI makes CX and where it breaks it
 Sindhu Shekharan, VP Customer Success, Sutherland Global Services Inc.
 Track 1(Pavilion 1)
 The customer journey. The talk walks through specific moments and shows the result at each one.Abstract: AI's effect on customer experience is not uniform. It depends on the moment. Across industries, the same technology that delights customers at booking frustrates them during disruption. we will maps where AI makes and breaks the human experience across key service moments, using evidence from multiple industries, and translates the findings into the airline journey: booking, disruption, refunds and rebooking.
-Show more
+Show less
 Customer Experience
 
 Presentation: Autopilot was never unsupervised
@@ -464,10 +499,17 @@ Panel: Airports are full of data – how do we turn this into better real-time d
 Gyorgy Farkas, Head of IT Project and Innovation Management, Budapest Airport
 Samuel í Hjøllum Rude, Vice President, Head of Operational Airport Services, Copenhagen Airports
 Nishant Rao, Director, Aviation Business Development, Nieuport Aviation
-+4 more speakers
+Amit Sukhija, Founder & CEO, ZestIoT Technologies B.V.
+Samuel C. Ehrat, Senior Project Leader, Zurich Airport
+Anu Kondepudy, Director, Analytics & Innovation, United Airlines
+Al Titterington, Founder, OSC Airport Consulting
 Track 8 (Pavilion 2)
-Airports are collecting more operational data than ever, but where are operations team still struggling to turn it into action? • Passenger flow, turnaround visibility and resource allocation are increasingly connected. How do airports bring these datasets together in a useful way? • How do airports balance airline demand for slots with operational and capacity constraints? How does good data help here? • AI is moving quickly, but weak data foundations still hold many projects back. What has to be fixed first? • Looking ahead, what will define an intelligent airport operating model over the next five years?
-Show more
+Airports are collecting more operational data than ever, but where are operations team still struggling to turn it into action?
+Passenger flow, turnaround visibility and resource allocation are increasingly connected. How do airports bring these datasets together in a useful way?
+How do airports balance airline demand for slots with operational and capacity constraints? How does good data help here?
+AI is moving quickly, but weak data foundations still hold many projects back. What has to be fixed first?
+Looking ahead, what will define an intelligent airport operating model over the next five years?
+Show less
 13:10
 
 Recommended
@@ -485,20 +527,30 @@ Panel: Scaling sustainable aviation fuel – who carries the risk, cost and resp
 Ulrike Ziegler, President of the Board of Directors, Impact on Sustainable Aviation
 Maria Whittaker, Chief Corporate Responsibility Officer, Abra Group
 Jan Petter Steinland, Director Strategic Analysis & Transformation, Civil Aviation Authority Norway
-+3 more speakers
+Shahobiddin Davlatov, Head of Strategic Development, Uzbekistan Airports
+Nina Sproedt, Vice President Sustainability, Lufthansa Group
+Patrick Edmond, Chief Commercial Officer, Future Energy Global
 Track 10 (Pavilion 2)
-One year into policies like RefuelEU, what has changed and are airlines now facing uneven regional pressures? • Is SAF still supply-constrained, or are investment risk, production economics and market demand now the biggest barriers to scale? • Where is collaboration between airlines, fuel producers, airports and governments working, and where is it breaking down? • As carbon pricing expands and compliance costs rise, how does this change the business case for SAF compared with other decarbonization pathways? • As geopolitical uncertainty continues, how resilient is the long-term business case for SAF? • What would a functioning SAF market look like by 2030?
-Show more
+One year into policies like RefuelEU, what has changed and are airlines now facing uneven regional pressures?
+Is SAF still supply-constrained, or are investment risk, production economics and market demand now the biggest barriers to scale?
+Where is collaboration between airlines, fuel producers, airports and governments working, and where is it breaking down?
+As carbon pricing expands and compliance costs rise, how does this change the business case for SAF compared with other decarbonization pathways?
+As geopolitical uncertainty continues, how resilient is the long-term business case for SAF?
+What would a functioning SAF market look like by 2030?
+Show less
 Airline Keynote
 
 CEO Panel: Strategy, competition and innovation in a disruptive environment
 Marcus Schnabel, CEO, SunExpress Airlines
 Theo Panagiotoulias, Chief Executive Officer, Star Alliance
 Sunil John, CEO, PROS
-+1 more speaker
+Peter Campbell, Global Transport Correspondent, Financial Times
 Keynote Stage 1 (Pavilion 1)
-Investing in AI transformation to support long term goals • Creating smart business models to compete effectively in a complex global market • Identifying new opportunities for collaboration & growth • Creating next-gen products to meet the expectations of next-gen customers
-Show more
+Investing in AI transformation to support long term goals
+Creating smart business models to compete effectively in a complex global market
+Identifying new opportunities for collaboration & growth
+Creating next-gen products to meet the expectations of next-gen customers
+Show less
 13:20
 
 Recommended
@@ -508,40 +560,61 @@ Panel: Creating safe & effective foundations for AI transformation within the ai
 Ben Dias, Chief AI Scientist, IAG
 Dirk Jungnickel, SVP Enterprise Data & Analytics, Emirates Airline
 Kevin Lynn, Director – Crew Scheduling Technology, United Airlines
-+4 more speakers
+Charu Jain, SVP, Merchandising and Innovation, Alaska Airlines
+Dmytro Baikov, VP of AI, DataArt
+Azim Barodawala, Co-Founder & CEO, Volantio Inc.
+Alex Goman, Principal Consultant, STS Aero
 Track 9 (Pavilion 2)
-What are the priorities for leaders who are focused on creating a safe & reliable AI frameworks? • Building safety into the core of AI usage in Aviation: balancing innovation with risk integrity • How can Airlines best measure the quality and sophistication of their AI maturity? • Building today with tomorrow’s technology innovation in mind: how can leaders build IT platforms in a fast paced tech space
-Show more
+What are the priorities for leaders who are focused on creating a safe & reliable AI frameworks?
+Building safety into the core of AI usage in Aviation: balancing innovation with risk integrity
+How can Airlines best measure the quality and sophistication of their AI maturity?
+Building today with tomorrow’s technology innovation in mind: how can leaders build IT platforms in a fast paced tech space
+Show less
 Payments
 
 Panel: Payments, retailing & offer-order: what changes when retail changes?
 Yago Casasnovas, Head of Payments, Fraud Prevention and Distribution, Air Europa
 Shaun Donaghey, Chief Commercial Officer, CellPoint
 Dennis Lore, Payments Reconciliations and Credit Risk Accountant Manager, Kenya Airways
-+2 more speakers
+Esperanza Fernandez, VP, Airline Acceptance, Mastercard
+Paul van Alfen, Travel Payments Strategist, Up in the Air - Travel Payment Consultancy
 Track 6 (Pavillion 1)
-In an offer-order world, how must payment authorisation, settlement and refunds evolve to avoid operational complexity? • As orders replace tickets, what new payment and servicing processes are required across the airline ecosystem? • How can airlines reduce cost of sale across NDC, aggregators and OTAs without damaging conversion or partner reach? • How are fintech and travel platforms reshaping ancillary revenue and the checkout experience? • What is the future of agency payment - VCCs, A2A and new settlement models? • How are airlines reorganising internally to align commercial, distribution and payments teams around retailing transformation?
-Show more
+In an offer-order world, how must payment authorisation, settlement and refunds evolve to avoid operational complexity?
+As orders replace tickets, what new payment and servicing processes are required across the airline ecosystem?
+How can airlines reduce cost of sale across NDC, aggregators and OTAs without damaging conversion or partner reach?
+How are fintech and travel platforms reshaping ancillary revenue and the checkout experience?
+What is the future of agency payment - VCCs, A2A and new settlement models?
+How are airlines reorganising internally to align commercial, distribution and payments teams around retailing transformation?
+Show less
 Digital & IT
 
 Panel: How do we drive revenue, resilience and measure return on tech investment?
 Mel Crocker, CIO, Air Canada
 Dan Bartel, Chief Procurement Officer, American Airlines
 Massimo Morin, Global Head, Travel, AWS for Travel and Hospitality, Amazon Web Services, Inc. (SEA54)
-+3 more speakers
+Uma Gopinath, SVP and Chief Information Officer, Porter Airlines
+Dee Waddell, Global Head of Consumer, Travel & Transportation Industries, IBM
+David Peller, General Partner & Founder, If Not You Capital
 Track 1(Pavilion 1)
-Where should airlines place their biggest technology bets for 2026–2028 – core systems modernisation, AI, cloud or infrastructure resilience? • How do airlines modernise legacy systems while continuing to operate at scale without creating parallel complexity? • When budgets tighten, how do we distinguish between essential investment and “nice to have” innovation? • Which technology investments are genuinely delivering measurable value across the airline – from automation to AI and core platform upgrades?
-Show more
+Where should airlines place their biggest technology bets for 2026–2028 – core systems modernisation, AI, cloud or infrastructure resilience?
+How do airlines modernise legacy systems while continuing to operate at scale without creating parallel complexity?
+When budgets tighten, how do we distinguish between essential investment and “nice to have” innovation?
+Which technology investments are genuinely delivering measurable value across the airline – from automation to AI and core platform upgrades?
+Show less
 Customer Experience
 
 Panel: Supporting the full customer journey with effective customer care: From the importance of human touch to the power of digital
 Marco Barbosa, Directior of Guest Care and Delivery, Etihad
 Jason Ward, Chief Customer Officer, Azul Airlines
 Renato Ramos, Vice President Corporate Strategy, Star Alliance
-+3 more speakers
+Agnieszka Skoczypiec, Senior Director, Travel & Aviation Solutions, TransPerfect International LLC
+Max Tremaine, CEO, Sherpa
+Jerry Angrave, Customer Experience Director, Empathyce
 Track 2 (Pavilion 1)
-How can airlines navigate smart multi-channel customer communications to optimise cost and increase customer support • Supporting insights with relevant data streams for colleagues and tech support to support customers effectively and efficiently • Shaping the long-term communications strategy: what will the future look like with AI and agentic AI in the mix?
-Show more
+How can airlines navigate smart multi-channel customer communications to optimise cost and increase customer support
+Supporting insights with relevant data streams for colleagues and tech support to support customers effectively and efficiently
+Shaping the long-term communications strategy: what will the future look like with AI and agentic AI in the mix?
+Show less
 13:30
 
 Recommended
@@ -608,9 +681,9 @@ Star Alliance CEOs Panel: From fragmented to frictionless: Rethinking alliance t
 Theo Panagiotoulias, Chief Executive Officer, Star Alliance
 Luís Rodrigues, Chief Executive Officer, Tap Air Portugal
 Joerg Eberhart, Chief Executive Officer, ITA-Airways
-+1 more speaker
+Peter Campbell, Global Transport Correspondent, Financial Times
 Keynote Stage 1 (Pavilion 1)
-Show more
+Show less
 14:10
 
 Recommended
@@ -636,7 +709,7 @@ Aviation Connect: Session 4
 Host, World Aviation Festival
 Aviation Connect Zone, Pavilion 2
 Aviation Connect is our dedicated networking hour. Book 15 minute meetings via the Aviation Connect Platform and make the most of your time at WAF. No other sessions, workshops or activities are taking place during this time.
-Show more
+Show less
 15:35
 
 Recommended
@@ -741,7 +814,7 @@ Paulo Aguiar, VP of Airline Solutions & Strategy, Amach
 Choorah Singh Ark, Managing Director, Ark Advisory
 Track 1(Pavilion 1)
 Choorah Singh, who has led operations at Air India and Ryanair, joins Paulo Aguiar from Amach for an honest conversation from inside the Operations Control Centre: what really works with data and AI when the day goes wrong, what doesn’t, and what every airline should fix before buying its next AI tool.
-Show more
+Show less
 Customer Experience
 
 Fireside Chat: Elevating economy: How TAP Air Portugal is redefining the premium experience to drive growth
@@ -759,9 +832,10 @@ Panel: The 'Everyday' Ecosystem – Integrating real-time loyalty into the daily
 Phillip Dugaw, Director partner strategy, American airlines
 Kai Paroma, Manager, Loyalty Partnerships, Finnair
 Yilmaz Gorali, Vice President, Airline Retailing - Product Development, Turkish Technology
-+2 more speakers
+Peter Smith, SVP Travel, Cover Genius US Trading, LLC
+Harald Deprosse, Partner, Envolved GmbH
 Track 3 (Pavillion 1)
-Show more
+Show less
 AI / ML
 
 Presentation: Beyond trends and analytics: The rise of connected aviation intelligence
@@ -811,8 +885,9 @@ Airline Keynote
 Presentation: When machines shop: The new rules of airline retailing
 Surain Adyanthaya, President, PROS
 Keynote Stage, Pavilion 1
-AI assistants are changing how travelers discover flights and which businesses capture their bookings. PROS research across 80 carriers found that AI referrals drove flight search initiation, a validated proxy for booking, more than seven percentage points above Google Organic. Yet the majority of AI answers naming an airline included no direct link to the carrier. • What happens when the machine becomes the shopper? This session explores the implications for airline visibility, retailing, and distribution and why being recommended by AI may not be enough to win the customer.
-Show more
+AI assistants are changing how travelers discover flights and which businesses capture their bookings. PROS research across 80 carriers found that AI referrals drove flight search initiation, a validated proxy for booking, more than seven percentage points above Google Organic. Yet the majority of AI answers naming an airline included no direct link to the carrier.
+What happens when the machine becomes the shopper? This session explores the implications for airline visibility, retailing, and distribution and why being recommended by AI may not be enough to win the customer.
+Show less
 16:10
 
 Recommended
@@ -827,10 +902,16 @@ Panel: Data platforms, interoperability and AI – are our foundations ready for
 Mustafa Egilmezbilek, CIO, SunExpress Airlines
 Ahmed Naeemi, Chief Information Officer, Gulf Air Group
 Paulo Aguiar, VP of Airline Solutions & Strategy, Amach
-+2 more speakers
+Kumar Paramasivam, SVP and Global Head- Services, Infosys Limited
+Guido Woska, Chief Client Officer & Executive Partner, Manyone
 Track 1(Pavilion 1)
-What does a modern data foundation look like across airline operations, commercial platforms and customer systems? • How are we using cloud to unify data, scale platforms and support real-time decision making? • How critical is interoperability between core systems, distribution, operations and partners to unlocking real value? • Where are airlines still constrained – legacy architecture, integration complexity or fragmented data ownership? • How do we ensure AI enhances decision-making rather than amplifying poor data or disconnected systems? • At what point do advanced analytics and AI move from isolated use cases to embedded operational capabilities?
-Show more
+What does a modern data foundation look like across airline operations, commercial platforms and customer systems?
+How are we using cloud to unify data, scale platforms and support real-time decision making?
+How critical is interoperability between core systems, distribution, operations and partners to unlocking real value?
+Where are airlines still constrained – legacy architecture, integration complexity or fragmented data ownership?
+How do we ensure AI enhances decision-making rather than amplifying poor data or disconnected systems?
+At what point do advanced analytics and AI move from isolated use cases to embedded operational capabilities?
+Show less
 Startup Theatre
 
 The Intelligent Cabin: Live Announcement Captioning, Real-Time Translation & a Flight-Aware AI Concierge
@@ -842,20 +923,28 @@ How are airlines and their partners are reshaping distribution, retail and the c
 Maddalena Mirai, VP IAG Group Commercial Strategy, IAG
 Ivan Ordas Villamandos, Head of Distribution and Alliances, Frontier Airlines
 Rolf Thomke, Head of Digital Distribution Europe, Singapore Airlines Limited
-+1 more speaker
+Dennis Cary, Managing Director, Cary Strategic Advisory
 Track 5 (Pavilion 1)
-What role will AI play in offer creation, pricing, merchandising and servicing over the next five years? • Where are airlines seeing the greatest commercial returns from NDC, dynamic offers and modern retailing? • Has the industry moved beyond simply implementing NDC to delivering genuine retail transformation?
-Show more
+What role will AI play in offer creation, pricing, merchandising and servicing over the next five years?
+Where are airlines seeing the greatest commercial returns from NDC, dynamic offers and modern retailing?
+Has the industry moved beyond simply implementing NDC to delivering genuine retail transformation?
+Show less
 Payments
 
 Panel: Beyond transactions – loyalty, embedded finance and the future of customer engagement?
 Sean Holdstock, Head of Aviation EMEA, Antom
 Joao Frias, Head of Payments Strategy & Global Fraud, Tap Air Portugal
 Ian Citulsky, SVP Air and Canada, Flex Pay
-+2 more speakers
+Pedro Gavina, Head of Payments and Fraud, Iberia
+Greg Toussaint, Director, Edgar, Dunn & Company
 Track 6 (Pavillion 1)
-Are airline financial products becoming core to customer strategy? • How do payment experiences influence loyalty and retention? • Where do wallets, BNPL and flexible payments genuinely improve customer experience? • How are airlines balancing monetisation with trust? • What role does personalisation play in airline commerce? • Could airlines evolve into broader travel-financial ecosystems?
-Show more
+Are airline financial products becoming core to customer strategy?
+How do payment experiences influence loyalty and retention?
+Where do wallets, BNPL and flexible payments genuinely improve customer experience?
+How are airlines balancing monetisation with trust?
+What role does personalisation play in airline commerce?
+Could airlines evolve into broader travel-financial ecosystems?
+Show less
 Customer Experience
 
 Presentation: Scaling insight-driven action with agentic AI
@@ -867,30 +956,45 @@ Panel: Building joint operational resilience - how do airports, airlines and han
 Adam Schipper, Global Aviation Lead, Ericsson
 Chamith Seneviratne, Manager, Airport Operations, Air Canada
 Marc-Philippe Lumpé, Chief Operations Officer, Air Transat
-+3 more speakers
+Roland Böhm, VP Operational Transformation, BER
+Pramod Rao Haridas, Head of Experience and Operations - Terminals, Bangalore International Airport Ltd
+Simon Wilcox, Founder and CEO, Wordsworth Consulting Ltd
 Keynote Stage 2 (Pavilion 2)
-During disruption, where do responsibilities still fracture across airports, airlines and ground handlers? • What real-time data sharing is needed to move from reactive responses to proactive joint decision-making? • How can we align incentives when operational KPIs and performance metrics differ? • Which digital tools are genuinely improving operational coordination across the ecosystem? • What would a truly integrated and resilient airport operating model look like over the next five years?
-Show more
+During disruption, where do responsibilities still fracture across airports, airlines and ground handlers?
+What real-time data sharing is needed to move from reactive responses to proactive joint decision-making?
+How can we align incentives when operational KPIs and performance metrics differ?
+Which digital tools are genuinely improving operational coordination across the ecosystem?
+What would a truly integrated and resilient airport operating model look like over the next five years?
+Show less
 Ancillaries
 
 Panel: What is the future for airline ancillary products? Exploring new opportunities, products and services customers value
 Surya Kuchibotla, VP eCommerce, Ancillary and Retailing, OMAN AIR
 Sharon Huetson, Head of Proposition, easyJet
 Patrick Dowling, VP Partnerships, Airalo
-+2 more speakers
+Chris Engle, Chief Customer Officer, Plusgrade Inc.
+Mark Lenahan, Consultant, Lenahan Consulting Ltd
 Track 4 (Pavilion 1)
-There has been a rise in airlines launching full holiday packages: what is the right strategy for airlines wanting to enter this market? • What trends are our panellists seeing in ancillary products, where are customers truly willing to spend? • How can airlines encourage further ancillary spend with personalised and smart upgrade offerings?
-Show more
+There has been a rise in airlines launching full holiday packages: what is the right strategy for airlines wanting to enter this market?
+What trends are our panellists seeing in ancillary products, where are customers truly willing to spend?
+How can airlines encourage further ancillary spend with personalised and smart upgrade offerings?
+Show less
 Airport - Traveller
 
 Panel: Designing seamless passenger journeys in an increasingly complex airport environment
 Anvar Kasimov, Head of the Strategic Development, Project Management and International Relations Department, Uzbekistan Airports JSC
 Cassie Schmid, Chief Strategy Officer, Philadelphia International Airport
 Mike Hardaker, Chief Asset and Development Officer, Manchester Airport Group
-+2 more speakers
+Elida Hasani, Customer Experience & Service Transformation Manager, Tirana International Airport
+Peta Wolmarans, Vice President, Ricondo
 Track 7 (Pavilion 2)
-Where are passengers still experiencing unnecessary friction across the airport journey? • How can airports deliver additional capacity and improve passenger flow? • What digital foundations and connected infrastructure need to be in place to enable smarter airport operations and seamless passenger journeys? • Where are biometrics, digital identity and automation genuinely improving accessibility, confidence and the passenger experience? • How do airports balance long-term infrastructure investment with ongoing operations, commercial priorities and changing passenger expectations? • As airports expand and modernise, how do we integrate legacy infrastructure with the next generation of connected airports?
-Show more
+Where are passengers still experiencing unnecessary friction across the airport journey?
+How can airports deliver additional capacity and improve passenger flow?
+What digital foundations and connected infrastructure need to be in place to enable smarter airport operations and seamless passenger journeys?
+Where are biometrics, digital identity and automation genuinely improving accessibility, confidence and the passenger experience?
+How do airports balance long-term infrastructure investment with ongoing operations, commercial priorities and changing passenger expectations?
+As airports expand and modernise, how do we integrate legacy infrastructure with the next generation of connected airports?
+Show less
 16:15
 
 Recommended
@@ -913,10 +1017,15 @@ Commercial Leaders Panel: Shaping smart commercial strategy in the age of AI & h
 Paul Verhagen, Executive Vice President and Chief Commercial Officer, SAS
 Karim Makhlouf, Chief Commercial Officer, Royal Jordanian Airlines
 Henri-Charles Ozarovsky, Group Head of Strategy & SVP Strategy, Alliances & Partnerships, Tap Air Portugal
-+2 more speakers
+Ricky Horwitz, Global Head of Sales, GSP - Travel, Ticketing & Lodging, Allianz Partners
+Henry Harteveldt, Travel Industry Analyst, Atmosphere Research Group
 Keynote Stage 1 (Pavilion 1)
-How are airlines navigating a dynamic and complex pricing environment to drive growth? • What will the future of customer behaviour with AI mean for visibility, sales and brand recognition? • What are the new opportunities for ancillary sales? Identifying growth from onboard connectivity to premiumisation? • How is technology creating new levels of insight for commercial decision making and investment? • How are we understanding customer behaviour in an age of increasing geopolitical uncertainty?
-Show more
+How are airlines navigating a dynamic and complex pricing environment to drive growth?
+What will the future of customer behaviour with AI mean for visibility, sales and brand recognition?
+What are the new opportunities for ancillary sales? Identifying growth from onboard connectivity to premiumisation?
+How is technology creating new levels of insight for commercial decision making and investment?
+How are we understanding customer behaviour in an age of increasing geopolitical uncertainty?
+Show less
 16:25
 
 Recommended
@@ -931,10 +1040,13 @@ Panel: Shaping a data driven customer experience strategy with cutting edge cust
 Maciej Kowalówczany, Head of Customer Experience Strategy, LOT Polish Airlines
 Frank de Boer, Director Data and Technology | Customer Loyalty | Flying Blue, Air France / KLM
 Matthew Walker, Head of Marketing, Plan3
-+1 more speaker
+Jerry Angrave, Customer Experience Director, Empathyce
 Track 2 (Pavilion 1)
-Exploring the benefits of prioritising data-driven decision making • How are airlines using data & AI to shape smart customer experience strategy? • Adopting an agile mindset within a structured strategy to test and innovate faster to identify golden opportunities • Sharing how data insights influence investment decisions and product development
-Show more
+Exploring the benefits of prioritising data-driven decision making
+How are airlines using data & AI to shape smart customer experience strategy?
+Adopting an agile mindset within a structured strategy to test and innovate faster to identify golden opportunities
+Sharing how data insights influence investment decisions and product development
+Show less
 AI / ML
 
 Panel: Sharing insights into embedding Agentic AI across the Aviation business
@@ -961,10 +1073,16 @@ Panel: Smarter fuelling & operational efficiency – how digital operations can 
 Jonathan Hankin, Head of ESG, Menzies Aviation
 Alex Mattos, Co-Founder & Managing Director, i6 Group
 David Buckley, Flight Operations Manager - Efficiencies & Sustainability, easyJet`
-+2 more speakers
+Robin Weissgerber, aFuel Product Manager, Information Design
+Patrick Edmond, Chief Commercial Officer, Future Energy Global
 Track 10 (Pavilion 2)
-Where do disconnected fuelling and turnaround workflows still create delays and fuel waste? • How can real-time fuel data improve operational efficiency and reporting accuracy? • What operational gains are airlines seeing from digital fuelling and integrated turnaround systems? • How do operators balance efficiency, resilience and sustainability targets? • Which operational technologies are delivering measurable emissions reductions today? • Why do so many operational sustainability projects fail to scale?
-Show more
+Where do disconnected fuelling and turnaround workflows still create delays and fuel waste?
+How can real-time fuel data improve operational efficiency and reporting accuracy?
+What operational gains are airlines seeing from digital fuelling and integrated turnaround systems?
+How do operators balance efficiency, resilience and sustainability targets?
+Which operational technologies are delivering measurable emissions reductions today?
+Why do so many operational sustainability projects fail to scale?
+Show less
 16:40
 
 Recommended
@@ -996,7 +1114,12 @@ Data Leaders Panel: Maximising benefits for aviation with smart data strategies 
 Ben Dias, Chief AI Scientist, IAG
 Mustafa Egilmezbilek, CIO, SunExpress Airlines
 Ben Maynard, Director AI & Customer Experience, OAG
-+2 more speakers
+Dee Waddell, Global Head of Consumer, Travel & Transportation Industries, IBM
+Uschi Schulte-Sasse, Founder & Principal, USS AviationConsulting
 Keynote Stage 1 (Pavilion 1)
-What are the biggest barriers for airlines to truly harness the power of science & AI? • In our panellists view, will AI dramatically disrupt the aviation industry or are the benefits over-hyped? • Where will the most impactful benefits from AI and ML come in the aviation business and where are our panellists investing? • As a quickly evolving technology, how are organisations preparing a solid platform for future innovation: investing in guardrails, safety and strong data foundations • Evaluating the threat of agentic AI: will AI Agents turn the aviation business model on its head?
-Show more
+What are the biggest barriers for airlines to truly harness the power of science & AI?
+In our panellists view, will AI dramatically disrupt the aviation industry or are the benefits over-hyped?
+Where will the most impactful benefits from AI and ML come in the aviation business and where are our panellists investing?
+As a quickly evolving technology, how are organisations preparing a solid platform for future innovation: investing in guardrails, safety and strong data foundations
+Evaluating the threat of agentic AI: will AI Agents turn the aviation business model on its head?
+Show less

@@ -104,7 +104,7 @@ def session_format(category, title):
 
 
 def parse_day(text, day_label):
-    raw = [l.strip() for l in text.splitlines()]
+    raw = [l.replace("\u200b", "").strip() for l in text.splitlines()]
     # On the site a stream/category label is always followed by a blank line
     cat_like = set()
     lines = []
